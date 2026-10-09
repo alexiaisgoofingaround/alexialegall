@@ -1,1 +1,502 @@
+<!DOCTYPE html>
+<!--
+  PORTFOLIO MOCKUP (style C), fully commented.
 
+  HOW THIS FILE IS ORGANISED
+    1. <style>  : all the looks (colors, fonts, layout)
+    2. <body>   : three empty "pages" (CV, Projects, Project detail) that JavaScript fills in
+    3. <script> : the data + the code that builds the pages
+
+  HOW IT MAPS TO THE REAL JEKYLL / AL-FOLIO SITE
+    SKILLS, EXP, EDU, HOB  ->  _data/skills.yml and _data/cv.yml   (you edit text files)
+    PROJ                   ->  one _projects/<name>.md file per project (see _template.md)
+    renderCV/renderProjects/renderDetail -> Liquid layouts (_layouts/*.liquid)
+    CSS                    ->  _sass/_custom.scss
+  In this mockup everything lives in one file only so you can click through it.
+-->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Alexia Le Gall — portfolio mockup (style C)</title>
+
+<!-- Fonts: Newsreader (serif, headings) + Manrope (sans, body). -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
+
+<!-- LaTeX math. MathJax turns $...$ (inline) and $$...$$ (display) into equations.
+     al-folio ships with MathJax too, so the same syntax works in the real site.
+     The config must come BEFORE the loader script. typeset:false = we trigger
+     rendering ourselves, after JavaScript has built the page. -->
+<script>
+  window.MathJax = {
+    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
+    startup: { typeset: false }
+  };
+</script>
+<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
+
+<style>
+/* ================= 1. DESIGN TOKENS =================
+   Every color is a variable. Change a value here and the whole site follows. */
+:root{
+  box-sizing:border-box;
+  /* keep content clear of the phone status bar / home indicator */
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+  --bg:#FAFAF7;     /* page background */
+  --fg:#22262A;     /* body text */
+  --soft:#59616a;   /* secondary text (dates, captions) */
+  --deep:#0E2A33;   /* headings, active buttons */
+  --pane:#EDEFEA;   /* chips, boxes, code blocks */
+  --line:#DCDFD8;   /* thin separators */
+  --hero:#DCE7EA;   /* hero banner + image placeholders */
+}
+/* Dark mode: same variables, different values. Follows the visitor's system setting. */
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#141819;--fg:#E6E8E6;--soft:#9aa3a8;--deep:#CFE3E8;--pane:#22292B;--line:#2E3638;--hero:#1E2B2F}
+}
+:root[data-theme="dark"]{--bg:#141819;--fg:#E6E8E6;--soft:#9aa3a8;--deep:#CFE3E8;--pane:#22292B;--line:#2E3638;--hero:#1E2B2F}
+
+/* ================= 2. BASE ================= */
+*,*::before,*::after{box-sizing:inherit}          /* padding never makes boxes wider than set */
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.6 Manrope,"Segoe UI",sans-serif}
+a{color:inherit}
+button{font:inherit;color:inherit;cursor:pointer}
+:focus-visible{outline:2px solid #4C8C9C;outline-offset:2px}   /* visible keyboard focus */
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:400;color:var(--deep);margin:0}
+
+/* ================= 3. TOP NAVIGATION ================= */
+nav{display:flex;justify-content:space-between;align-items:center;padding:20px 40px;flex-wrap:wrap;gap:8px;max-width:1120px;margin:0 auto}
+nav b{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:20px;color:var(--deep)}
+nav .tabs{display:flex;gap:6px}
+nav .tabs button{border:0;background:none;padding:6px 12px;border-radius:20px;color:var(--soft)}
+nav .tabs button[aria-current="page"]{background:var(--deep);color:var(--bg)}   /* the tab you are on */
+
+/* ================= 4. PAGES =================
+   Only the page with class "on" is visible. JavaScript moves "on" between pages. */
+.page{display:none}
+.page.on{display:block}
+
+/* ================= 5. HERO BANNER (CV page) ================= */
+.hero{position:relative;min-height:340px;background:var(--hero);display:grid;align-items:end;overflow:hidden}
+.hero svg{position:absolute;inset:0;width:100%;height:100%}      /* decorative background drawing */
+.hero .cap{position:relative;padding:36px 40px;max-width:1120px;width:100%;margin:0 auto}
+.hero h1{font-size:52px;line-height:1.02;margin-bottom:10px;max-width:14ch}
+.hero p{margin:0 0 10px;max-width:52ch;color:var(--soft)}
+.dl{display:inline-block;margin-top:6px;border:1px solid var(--deep);color:var(--deep);padding:7px 16px;border-radius:20px;text-decoration:none;font-size:14px}
+
+/* ================= 6. CV PAGE ================= */
+/* two columns: narrow sidebar (skills, languages) + wide main column */
+.cv{display:grid;grid-template-columns:260px 1fr;gap:56px;padding:48px 40px 64px;max-width:1120px;margin:0 auto}
+.cv h2{font-size:26px;margin-bottom:14px}
+.cv section{margin-bottom:40px}
+.hint{font-size:13px;color:var(--soft);margin:-6px 0 14px}
+
+/* skill chips (used in the sidebar, in expanded CV entries and on project pages) */
+.skillgroup{margin-bottom:18px}
+.skillgroup h3{font-family:Manrope,sans-serif;font-size:13px;font-weight:600;color:var(--soft);margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:0;background:var(--pane);padding:5px 12px;border-radius:20px;font-size:14px}
+.chip:hover{background:var(--deep);color:var(--bg)}
+.chip .n{opacity:.6;font-size:12px;margin-left:4px}                /* little project counter */
+
+/* CV entries: a native <details> element = click to expand, no JavaScript needed */
+.entry{border-top:1px solid var(--line);transition:opacity .2s}
+.entry summary{display:grid;grid-template-columns:120px 1fr 24px;gap:20px;padding:16px 0;cursor:pointer;list-style:none}
+.entry summary::-webkit-details-marker{display:none}               /* hide Safari's default triangle */
+.entry .when{font-size:14px;color:var(--soft);padding-top:4px}
+.entry h3{font-size:21px}
+.entry .org,.entry .one{display:block;color:var(--soft);font-size:15px}
+.entry .one{color:var(--fg)}
+.entry .plus{font-size:22px;color:var(--soft);transition:transform .2s}
+.entry[open] .plus{transform:rotate(45deg)}                         /* "+" turns into "x" when open */
+.entry .more{padding:0 0 18px 140px}                                /* 140 = 120 date column + 20 gap */
+.entry .more ul{margin:0 0 12px;padding-left:18px;max-width:62ch}
+.entry .more li{margin-bottom:4px}
+.seeproj{display:block;margin-top:10px;border:0;background:none;padding:0;color:var(--deep);text-decoration:underline;font-size:14px}
+/* hover on a sidebar skill: JavaScript adds .dim to the CV and .hit to matching entries */
+.cv.dim .entry:not(.hit){opacity:.35}
+.cv.dim .entry.hit{opacity:1}
+
+.hobbies{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px}
+.hobby{background:var(--pane);padding:18px;border-radius:2px}
+.hobby h3{font-size:19px;margin-bottom:4px}
+.hobby p{margin:0;font-size:14px;color:var(--soft)}
+
+/* ================= 7. PROJECTS PAGE ================= */
+.filter{display:flex;gap:8px;flex-wrap:wrap;padding:28px 40px 8px;max-width:1120px;margin:0 auto}
+.filter button{border:0;background:var(--pane);padding:7px 14px;border-radius:20px;font-size:14px}
+.filter button[aria-pressed="true"]{background:var(--deep);color:var(--bg)}   /* active filter */
+/* mosaic = 3 columns of equal width, rows 220px high; a "big" tile spans 2x2 cells */
+.mosaic{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:220px;gap:12px;padding:16px 40px 64px;max-width:1120px;margin:0 auto}
+.tile{position:relative;overflow:hidden;color:#fff;display:flex;align-items:flex-end;padding:18px;border:0;text-align:left;border-radius:2px}
+.tile.big{grid-column:span 2;grid-row:span 2}
+.tile::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,#000a)}  /* dark fade so text stays readable on any image */
+.tile>div{position:relative;z-index:1}                              /* text above the fade */
+.tile h3{color:#fff;font-size:23px;margin-bottom:2px}
+.tile.big h3{font-size:34px}
+.tile small{font-size:13px;opacity:.9}
+.tile.tpl{background:var(--pane)!important;color:var(--soft);border:2px dashed var(--line)}  /* the "new project" placeholder */
+.tile.tpl::after{display:none}
+.tile.tpl h3{color:var(--soft)}
+.empty{grid-column:1/-1;color:var(--soft);padding:20px 0}
+
+/* ================= 8. PROJECT DETAIL PAGE =================
+   Sections follow the project template, in this order:
+   title + skill tags / Description / Results / Resources */
+.detail{max-width:820px;margin:0 auto;padding:40px 40px 64px}
+.back{border:0;background:none;color:var(--soft);padding:0;margin-bottom:20px;font-size:14px}
+.detail h1{font-size:44px;line-height:1.05;margin-bottom:8px}
+.detail .meta{color:var(--soft);margin:0 0 18px}
+.detail h2{font-size:26px;margin:40px 0 12px;padding-top:16px;border-top:1px solid var(--line)}
+.detail p{max-width:62ch}
+figure{margin:0 0 22px}
+figure .ph{aspect-ratio:16/9;display:grid;place-items:center;color:#ffffffcc;font-size:14px}  /* stands in for a real <img> */
+figure img{width:100%;height:auto;display:block}
+figcaption{font-size:14px;color:var(--soft);margin-top:8px;max-width:62ch}
+pre{background:var(--pane);padding:14px;overflow-x:auto;font-size:13px;border-radius:2px;margin:12px 0}  /* long lines scroll inside the box */
+.res{list-style:none;padding:0;margin:0}
+.res li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.res span{color:var(--soft);font-size:14px}
+.subs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+.subs button{border:0;background:var(--pane);text-align:left;padding:14px}
+.subs button b{display:block;font-family:Newsreader,serif;font-weight:500;font-size:18px;color:var(--deep)}
+
+/* ================= 9. PHONE LAYOUT ================= */
+@media (max-width:760px){
+  nav,.cv,.filter,.mosaic,.detail,.hero .cap{padding-left:20px;padding-right:20px}
+  .cv{grid-template-columns:1fr;gap:24px}                           /* sidebar stacks above main */
+  .entry summary{grid-template-columns:1fr 24px;gap:4px}
+  .entry .when{grid-column:1/-1}
+  .entry .more{padding-left:0}
+  .mosaic{grid-template-columns:1fr 1fr}
+  .tile.big{grid-column:1/-1}
+  .hero h1{font-size:38px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}  /* respect the OS "reduce motion" setting */
+</style>
+</head>
+
+<body>
+<!-- ================= TOP NAV: two buttons, wired up in the script ================= -->
+<nav>
+  <b>Alexia Le Gall</b>
+  <div class="tabs"><button data-go="cv">CV</button><button data-go="projects">Projects</button></div>
+</nav>
+
+<!-- ================= PAGE 1: CV (static frame, lists are filled by JS) ================= -->
+<div class="page" id="cv">
+  <div class="hero">
+    <svg viewBox="0 0 1000 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+      <rect width="1000" height="340" fill="var(--hero)"/>
+      <!-- decorative folded-paper shape; replace with a real photo later -->
+      <g fill="#C3D6DB" stroke="#9DBAC2" stroke-width="2" opacity=".8"><path d="M560 300 L640 90 L720 300 L800 90 L880 300 L960 90 L1000 200 V300 Z"/></g>
+    </svg>
+    <div class="cap">
+      <h1>R&amp;D engineer, soft fluidic systems.</h1>
+      <p>Mechanical design, FEA, prototyping and test rigs. PhD at Scuola Superiore Sant'Anna, visiting researcher at the Oxford Robotics Institute. Pisa, open to France.</p>
+      <a class="dl" href="#">Download CV (PDF)</a>
+    </div>
+  </div>
+  <div class="cv">
+    <aside>
+      <section>
+        <h2>Skills</h2>
+        <p class="hint">Hover a skill to see where you used it. Click it to see the projects.</p>
+        <div id="skills"></div>   <!-- filled by renderCV() -->
+      </section>
+      <section>
+        <h2>Languages</h2>
+        <p style="margin:0">French, native<br>English, C1<br>German, B2<br>Italian, B1</p>
+      </section>
+    </aside>
+    <main>
+      <section><h2>Experience</h2><div id="exp"></div></section>
+      <section><h2>Education</h2><div id="edu"></div></section>
+      <section><h2>Engagement and hobbies</h2><div class="hobbies" id="hob"></div></section>
+    </main>
+  </div>
+</div>
+
+<!-- ================= PAGE 2: PROJECTS (filter bar + mosaic, both filled by JS) ================= -->
+<div class="page" id="projects">
+  <div class="filter" id="filter" role="group" aria-label="Filter by skill"></div>
+  <div class="mosaic" id="mosaic"></div>
+</div>
+
+<!-- ================= PAGE 3: ONE PROJECT (filled by renderDetail) ================= -->
+<div class="page" id="detail"><div class="detail" id="dbody"></div></div>
+
+<script>
+/* =====================================================================
+   1. DATA
+   This is the only part you would ever edit for content.
+   ===================================================================== */
+
+/* SKILLS: grouped for the sidebar. Format: [id, label].
+   The id is the "tag" used everywhere: in projects (skills: [fea, cad]),
+   in CV entries, and in the filter. One id = one skill, spelled the same everywhere.
+   Jekyll equivalent: _data/skills.yml */
+const SKILLS = {
+  "Mechanical": [["mechanical","Mechanical design"], ["cad","CAD & GD&T"], ["dfm","DFM"]],
+  "Simulation": [["fea","FEA (Ansys, COMSOL)"], ["python","Python / MATLAB"]],
+  "Hands-on":   [["prototyping","Rapid prototyping"], ["molding","Silicone molding"], ["testrigs","Test rigs"]],
+  "Domain":     [["fluidic","Soft & fluidic systems"], ["medical","Medical devices"]]
+};
+/* LABEL: quick lookup  id -> label  (built automatically from SKILLS). Example: LABEL.fea = "FEA (Ansys, COMSOL)" */
+const LABEL = Object.fromEntries(Object.values(SKILLS).flat());
+
+/* CV ENTRIES. Each entry is:
+   [dates, title, organisation, one-line summary, { details:[...bullets], skills:[ids], projects:[project ids] }]
+   - the one-liner is visible when collapsed
+   - details / skills / projects appear when the entry is expanded
+   - skills drive the hover highlight; projects create a "See project" link
+   Jekyll equivalent: _data/cv.yml (sections experience / education) */
+const EXP = [
+  ["2022–2026","PhD researcher, soft actuation","BioRobotics Institute, Scuola Superiore Sant'Anna, Pisa","Design rules for soft pneumatic actuators.",
+    {details:["Clinical constraints of minimally invasive surgery translated into system specifications.","Static and dynamic FEA in Ansys; hyperelastic material identification.","Fabrication pipeline from CAD and mold design to silicone molding.","Two closed-loop instrumented rigs (fluidic and thermal).","Co-supervised MSc theses."],
+     skills:["mechanical","fea","prototyping","molding","testrigs","python"], projects:["phd"]}],
+  ["2025–2026","Visiting researcher, fluidic logic","Oxford Robotics Institute","Electronics-free fluidic switching.",
+    {details:["Bistable valves using PolyJet multi-material properties.","Toolbox from Boolean logic to 3D-printable geometry."],
+     skills:["fluidic","prototyping","cad"], projects:["valves"]}],
+  ["2022","Research engineer intern","GIPSA-lab, Grenoble","Fluidic actuator for an artificial larynx.",
+    {details:["Designed, fabricated and characterised the prototype through iterative prototyping."],
+     skills:["prototyping","medical","fluidic"], projects:["larynx"]}],
+  ["2021–2022","Mechanical engineer intern","PKVitality, Paris","K'watch glucose-monitoring wearable.",
+    {details:["Mechanical design under biocompatibility constraints.","Design validation with clinician and end-user feedback."],
+     skills:["mechanical","cad","medical","dfm"], projects:["kwatch"]}]
+];
+const EDU = [
+  ["2017–2022","Engineering degree, mechanical design + MSc mechatronics","Université de Technologie de Compiègne","GPA 4.66/5.",
+    {details:["Core: mechanical design, tolerancing, FEA, mechatronics.","Minor in philosophy, technology and cognition.","Erasmus exchange, TU Hamburg (2021).","Equipment manager at FabLab UTC."],
+     skills:["mechanical","cad","fea"], projects:[]}],
+  ["2024","BEST summer school, 1st prize","IHU Strasbourg","Business, engineering and surgical technologies.",
+    {details:["Deployable endoscopic device concept for endometriosis screening; won the team competition."],
+     skills:["medical","mechanical"], projects:[]}],
+  ["2023","Summer school on surgical robotics","LIRMM, Montpellier","Surgical robotics methods and systems.",
+    {details:["Add what you covered or built there."], skills:["medical"], projects:[]}]
+];
+/* HOBBIES / ENGAGEMENT: [title, description]. Jekyll equivalent: _data/cv.yml (section hobbies) */
+const HOB = [
+  ["CanSat lead referee","ESA/ESERO student competition, 2020–2026."],
+  ["Soft Robotics Newsletter & Podcast","Co-manager."],
+  ["FabLab UTC","Equipment manager and trainer, 2019–2022."],
+  ["Photography","Replace with your own line."]
+];
+
+/* PROJECTS. One object per project. In the real site each object is the FRONT MATTER
+   (between the --- lines) and BODY of one file in _projects/. Fields:
+     id          short unique name (= the file name)
+     title/when  name and period
+     color       tile background; the real site uses a cover image instead
+     big         true = large tile on the projects page
+     skills      tags: ids from SKILLS. This is what links a project to the CV.
+     subs        (hubs only) ids of child projects, e.g. the PhD
+     description paragraph(s) of text                -> template section "Description"
+     results     list of blocks, in reading order:    -> template section "Results"
+                   ["fig", caption, color]  an image with its caption
+                   ["p", "text with $math$"] a paragraph, LaTeX allowed
+     resources   [label, url, kind] links, papers, files -> template section "Resources"
+     code        optional code snippet shown in Resources                           */
+const PROJ = [
+  { id:"phd", title:"PhD: design-driven soft pneumatic actuators", when:"2022–2026", color:"#2E5560", big:true,
+    skills:["mechanical","fea","prototyping","molding","testrigs","python","fluidic"],
+    subs:["origami","phase","valves"],
+    description:"Soft actuators are usually designed by trial and error. The thesis replaces that with design rules across three actuation principles: origami chambers, phase-change actuation and 3D-printed fluidic logic.",
+    results:[
+      ["fig","Figure 1. Overview of the three actuation principles studied in the thesis (placeholder).","#2E5560"],
+      ["p","Each chapter pairs a model with an experimental rig, so a design choice can be checked against a measurement."]
+    ],
+    resources:[["Thesis (PDF)","#","thesis"],["Defense slides","#","slides"],["Crease-Encoded Soft Origami Chambers","#","article, Adv. Intell. Syst. 2026"],["A Multiphysics Model for Phase Change Actuation","#","article, IFAC 2025"]] },
+
+  { id:"origami", title:"Origami chambers", when:"2023–2026", color:"#6F8F8A",
+    skills:["mechanical","fea","prototyping","molding"],
+    description:"Geometric framework linking crease parameters to joint motion at low pressure.",
+    results:[
+      ["fig","Figure 1. A molded chamber at rest and pressurised (placeholder).","#6F8F8A"],
+      ["p","Placeholder text showing LaTeX: to first order the joint torque is $\\tau = p\\,A\\,\\ell$, with pressure $p$, effective area $A$ and lever arm $\\ell$. Display equations get their own paragraph:"],
+      ["p","$$\\tau(\\theta) = p\\,A\\,\\ell(\\theta)$$"],
+      ["fig","Figure 2. Measured torque against pressure (placeholder).","#4F6F6B"]
+    ],
+    resources:[["Crease-Encoded Soft Origami Chambers","#","article"],["Dataset and scripts","#","code"]],
+    code:"# placeholder: load one test and fit a line\nimport numpy as np\np, tau = np.loadtxt('test01.csv', delimiter=',', unpack=True)\nslope = np.polyfit(p, tau, 1)[0]   # N.m per kPa" },
+
+  { id:"phase", title:"Phase-change actuation", when:"2024–2025", color:"#A0765A",
+    skills:["python","testrigs","fluidic"],
+    description:"Multiphysics model and Peltier-driven test rig for untethered soft actuators.",
+    results:[], resources:[["A Multiphysics Model for Phase Change Actuation","#","article"]] },
+
+  { id:"valves", title:"Bistable fluidic valves", when:"Oxford, 2025–26", color:"#45607A",
+    skills:["fluidic","prototyping","cad"],
+    description:"PolyJet multi-material valves and a toolbox from Boolean logic to printable geometry.",
+    results:[], resources:[] },
+
+  { id:"kwatch", title:"K'watch wearable", when:"PKVitality, 2021–22", color:"#7C6A8A",
+    skills:["mechanical","cad","medical","dfm"],
+    description:"Mechanical design of a glucose-monitoring wearable under biocompatibility constraints.",
+    results:[], resources:[] },
+
+  { id:"larynx", title:"Artificial larynx actuator", when:"GIPSA-lab, 2022", color:"#5E7A52",
+    skills:["prototyping","medical","fluidic"],
+    description:"Fluidic actuator prototype for a clinical voice application.",
+    results:[], resources:[] }
+];
+
+/* =====================================================================
+   2. SMALL HELPERS
+   ===================================================================== */
+/* how many projects use a skill: shown as the little number on each chip */
+const count = id => PROJ.filter(p => p.skills.includes(id)).length;
+/* escape < > & so code snippets display as text instead of being read as HTML */
+const esc = s => s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+/* ask MathJax to render any $...$ inside element el (does nothing if MathJax has not loaded) */
+const typeset = el => { if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([el]); };
+/* a chip button for one skill; clicking it opens the filtered projects (see the click handler below) */
+const chip = id => `<button class="chip" data-skill="${id}">${LABEL[id]}</button>`;
+
+/* =====================================================================
+   3. CV PAGE
+   ===================================================================== */
+/* Build one list of expandable entries (used for both Experience and Education).
+   <details>/<summary> is a built-in HTML element: click the summary = open/close. */
+const entries = list => list.map(([when, title, org, one, x]) => `
+  <details class="entry" data-skills="${x.skills.join(' ')}">
+    <summary>
+      <span class="when">${when}</span>
+      <span><h3>${title}</h3><span class="org">${org}</span><span class="one">${one}</span></span>
+      <span class="plus" aria-hidden="true">+</span>
+    </summary>
+    <div class="more">
+      <ul>${x.details.map(d => `<li>${d}</li>`).join('')}</ul>
+      <div class="chips">${x.skills.map(chip).join('')}</div>
+      ${x.projects.map(p => `<button class="seeproj" data-p="${p}">See project: ${PROJ.find(q => q.id === p).title}</button>`).join('')}
+    </div>
+  </details>`).join('');
+
+/* Sidebar skills, grouped, each with its project counter */
+document.getElementById('skills').innerHTML = Object.entries(SKILLS).map(([group, list]) => `
+  <div class="skillgroup"><h3>${group}</h3>
+    <div class="chips">${list.map(([id, label]) =>
+      `<button class="chip" data-skill="${id}">${label}<span class="n">${count(id)}</span></button>`).join('')}</div>
+  </div>`).join('');
+document.getElementById('exp').innerHTML = entries(EXP);
+document.getElementById('edu').innerHTML = entries(EDU);
+document.getElementById('hob').innerHTML = HOB.map(([t, d]) => `<div class="hobby"><h3>${t}</h3><p>${d}</p></div>`).join('');
+
+/* HOVER HIGHLIGHT: pointing at a sidebar skill dims every CV entry that did not use it.
+   Each <details> carries data-skills="fea cad ..." (written above), so matching is a simple lookup. */
+const cvEl = document.querySelector('.cv');
+const skillsEl = document.getElementById('skills');
+skillsEl.addEventListener('pointerover', e => {
+  const c = e.target.closest('[data-skill]');
+  if (!c) return;
+  cvEl.classList.add('dim');                                  /* CSS dims everything without .hit */
+  document.querySelectorAll('.cv .entry').forEach(en =>
+    en.classList.toggle('hit', en.dataset.skills.split(' ').includes(c.dataset.skill)));
+});
+skillsEl.addEventListener('pointerleave', () => cvEl.classList.remove('dim'));
+
+/* =====================================================================
+   4. PROJECTS PAGE
+   ===================================================================== */
+let active = "all";   /* the skill currently used as filter ("all" = no filter) */
+
+function renderProjects() {
+  /* filter buttons: "All" + only skills that at least one project uses */
+  const used = [...new Set(PROJ.flatMap(p => p.skills))];
+  document.getElementById('filter').innerHTML =
+    [["all","All"], ...used.map(id => [id, LABEL[id]])]
+      .map(([id, label]) => `<button data-f="${id}" aria-pressed="${active === id}">${label}</button>`).join('');
+
+  /* keep only the projects carrying the active skill tag */
+  const list = PROJ.filter(p => active === "all" || p.skills.includes(active));
+
+  /* one tile per project; big tiles only when unfiltered, so a filtered grid stays regular */
+  document.getElementById('mosaic').innerHTML =
+    (list.length
+      ? list.map(p => `
+          <button class="tile${p.big && active === "all" ? " big" : ""}" style="background:${p.color}" data-p="${p.id}">
+            <div><h3>${p.title}</h3><small>${p.when} · ${p.skills.slice(0,3).map(s => LABEL[s]).join(', ')}</small></div>
+          </button>`).join('')
+      : `<p class="empty">No project uses this skill yet.</p>`)
+    /* the dashed tile is only a reminder in the mockup; it does not exist on the real site */
+    + (active === "all" ? `<div class="tile tpl"><div><h3>New project</h3><small>Copy _projects/_template.md</small></div></div>` : "");
+}
+
+/* =====================================================================
+   5. PROJECT DETAIL PAGE
+   Same four parts as _projects/_template.md:
+   title + skill tags / Description / Results / Resources
+   ===================================================================== */
+function renderDetail(id) {
+  const p = PROJ.find(x => x.id === id);
+  if (!p) return go('projects');
+
+  /* RESULTS: walk through the blocks in order. "fig" = image + caption, "p" = paragraph */
+  const results = p.results.length
+    ? p.results.map(([kind, a, b]) => kind === "fig"
+        ? `<figure><div class="ph" style="background:${b}">image placeholder</div><figcaption>${a}</figcaption></figure>`
+        : `<p>${a}</p>`).join('')
+    : `<p style="color:var(--soft)">No results written yet. Copy the Results section from _template.md.</p>`;
+
+  /* SUB-PROJECTS: only for hub projects such as the PhD */
+  const subs = p.subs ? `
+    <h2>Sub-projects</h2>
+    <div class="subs">${p.subs.map(s => {
+      const q = PROJ.find(x => x.id === s);
+      return `<button data-p="${s}"><b>${q.title}</b>${q.when}</button>`; }).join('')}</div>` : '';
+
+  /* RESOURCES: link list, then the optional code block */
+  const res = (p.resources.length
+      ? `<ul class="res">${p.resources.map(([l, u, k]) => `<li><a href="${u}">${l}</a><span>${k}</span></li>`).join('')}</ul>`
+      : `<p style="color:var(--soft)">No resources yet.</p>`)
+    + (p.code ? `<pre><code>${esc(p.code)}</code></pre>` : '');
+
+  const el = document.getElementById('dbody');
+  el.innerHTML = `
+    <button class="back" data-go="projects">← All projects</button>
+    <h1>${p.title}</h1>
+    <p class="meta">${p.when}</p>
+    <div class="chips">${p.skills.map(chip).join('')}</div>
+    <h2>Description</h2><p>${p.description}</p>
+    ${subs}
+    <h2>Results</h2>${results}
+    <h2>Resources</h2>${res}`;
+  typeset(el);   /* turn $...$ into equations */
+}
+
+/* =====================================================================
+   6. NAVIGATION (a tiny "router": decides which page is visible)
+   ===================================================================== */
+function go(page, arg) {
+  /* show the requested page, hide the others */
+  document.querySelectorAll('.page').forEach(s => s.classList.toggle('on', s.id === page));
+  /* highlight the matching nav tab (the detail page counts as "projects") */
+  const tab = page === 'detail' ? 'projects' : page;
+  document.querySelectorAll('nav [data-go]').forEach(b => {
+    if (b.dataset.go === tab) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+  });
+  if (page === 'projects') { active = arg || "all"; renderProjects(); }   /* arg = skill id to filter on */
+  if (page === 'detail') renderDetail(arg);                                /* arg = project id */
+  window.scrollTo(0, 0);
+}
+
+/* ONE click listener for the whole page ("event delegation"): find which data-attribute was clicked.
+     data-go="cv|projects"   switch page
+     data-skill="fea"        open Projects filtered on that skill   <- the CV-to-projects link
+     data-f="fea"            change the filter while on Projects
+     data-p="origami"        open that project's page                                      */
+document.addEventListener('click', e => {
+  const t = e.target.closest('[data-go],[data-skill],[data-f],[data-p]');
+  if (!t) return;
+  if (t.dataset.go) go(t.dataset.go);
+  else if (t.dataset.skill) go('projects', t.dataset.skill);
+  else if (t.dataset.f) { active = t.dataset.f; renderProjects(); }
+  else if (t.dataset.p) go('detail', t.dataset.p);
+});
+
+go('cv');   /* start on the CV page */
+</script>
+</body>
+</html>
