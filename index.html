@@ -1,86 +1,50 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Alexia Le Gall</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500&family=Manrope:wght@400;600&display=swap" rel="stylesheet">
-
-<!-- MathJax: config BEFORE loader. typeset:false = app.js triggers rendering. -->
-<script>
-  window.MathJax = {
-    tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$']] },
-    startup: { typeset: false }
-  };
-</script>
-<script async src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg.js"></script>
-
-<link rel="stylesheet" href="assets/css/style.css">
-</head>
-
-<body>
-<!-- ============ LAYOUT: nav ============ -->
-<nav>
-  <b>Alexia Le Gall</b>
-  <div class="tabs"><button data-go="cv">CV</button><button data-go="projects">Projects</button></div>
-</nav>
-
-<!-- ============ PAGE 1: CV (frame + lists filled by app.js) ============ -->
-<div class="page" id="cv">
-  <div class="hero">
-    <svg viewBox="0 0 1000 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-      <rect width="1000" height="340" fill="var(--hero)"/>
-      <!-- decorative folded-paper shape; replace with a real photo later -->
-      <g fill="#C3D6DB" stroke="#9DBAC2" stroke-width="2" opacity=".8"><path d="M560 300 L640 90 L720 300 L800 90 L880 300 L960 90 L1000 200 V300 Z"/></g>
-    </svg>
-    <div class="cap">
-      <h1>Alexia Le Gall</h1>
-      <p>Mechanical engineer and PhD candidate in bio-robotics, with hands-on experience across the full development cycle: translating clinical requirements into system specifications, design, multiphysics modelling, fabrication and experimental validation. Experienced with the constraints specific to medical devices. Used to working and communicating across disciplines, and to coordinating multi-component developments.</p>
-    </div>
-  </div>
-  <div class="cv">
-    <aside>
-      <section>
-        <h2>Skills</h2>
-        <p class="hint">Hover a skill to see where you used it. Click it to see the projects.</p>
-        <div id="skills"></div>   <!-- filled by renderCV() -->
-      </section>
-      <section>
-        <h2>Languages</h2>
-        <div id="lang"></div>
-        <p style="margin:0">French, native<br>English, C1<br>German, B2<br>Italian, B1</p>
-      </section>
-    </aside>
-    <main>
-      <section><h2>Experience</h2><div id="exp"></div></section>
-      <section><h2>Education</h2><div id="edu"></div></section>
-      <section><h2>Engagement and hobbies</h2><div class="hobbies" id="hob"></div></section>
-    </main>
+---
+layout: default
+title: CV
+---
+<div class="hero">
+  <svg viewBox="0 0 1000 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <rect width="1000" height="340" fill="var(--hero)"/>
+    <!-- decorative folded-paper shape; replace with a real photo later -->
+    <g fill="#C3D6DB" stroke="#9DBAC2" stroke-width="2" opacity=".8"><path d="M560 300 L640 90 L720 300 L800 90 L880 300 L960 90 L1000 200 V300 Z"/></g>
+  </svg>
+  <div class="cap">
+    <h1>Alexia Le Gall</h1>
+    <p>Mechanical engineer and PhD candidate in bio-robotics, with hands-on experience across the full development cycle: translating clinical requirements into system specifications, design, multiphysics modelling, fabrication and experimental validation. Experienced with the constraints specific to medical devices. Used to working and communicating across disciplines, and to coordinating multi-component developments.</p>
   </div>
 </div>
 
-<!-- ============ PAGE 2: PROJECTS (filter bar + mosaic, both filled by JS) ============ -->
-<div class="page" id="projects">
-  <div class="filter" id="filter" role="group" aria-label="Filter by skill"></div>
-  <div class="mosaic" id="mosaic"></div>
+<div class="cv">
+  <aside>
+    <section>
+      <h2>Skills</h2>
+      <p class="hint">Hover a skill to see where you used it. Click it to see the projects.</p>
+      <div id="skills">
+        {% for g in site.data.skills %}
+        <div class="skillgroup"><h3>{{ g.group }}</h3>
+          <div class="chips">
+            {% for s in g.items %}
+              {% assign n = 0 %}
+              {% for p in site.projects %}{% if p.skills contains s.id %}{% assign n = n | plus: 1 %}{% endif %}{% endfor %}
+              <a class="chip" href="{{ '/projects/' | relative_url }}#{{ s.id }}" data-skill="{{ s.id }}">{{ s.label }}<span class="n">{{ n }}</span></a>
+            {% endfor %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </section>
+    <section>
+      <h2>Languages</h2>
+      <p class="langs">{% for l in site.data.cv.languages %}{{ l.lang }}, {{ l.level }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</p>
+    </section>
+  </aside>
+  <main>
+    <section><h2>Experience</h2>{% include cv-entries.html list=site.data.cv.experience %}</section>
+    <section><h2>Education</h2>{% include cv-entries.html list=site.data.cv.education %}</section>
+    <section><h2>Engagement and hobbies</h2>
+      <div class="hobbies">
+        {% for h in site.data.cv.hobbies %}<div class="hobby"><h3>{{ h.title }}</h3><p>{{ h.text }}</p></div>{% endfor %}
+      </div>
+    </section>
+  </main>
 </div>
-
-<!-- ============ PAGE 3: PROJECT DETAIL ============ -->
-<div class="page" id="detail"><div class="detail" id="dbody"></div></div>
-
-<!-- ============ SCRIPTS (order matters) ============ -->
-<!-- 1. data: skills, cv, then the project registry, then one file per project -->
-<script src="assets/js/data/skills.js"></script>
-<script src="assets/js/data/cv.js"></script>
-<script src="assets/js/data/projects/_registry.js"></script>
-<script src="assets/js/data/projects/phd.js"></script>
-<script src="assets/js/data/projects/origami.js"></script>
-<script src="assets/js/data/projects/phase.js"></script>
-<script src="assets/js/data/projects/valves.js"></script>
-<script src="assets/js/data/projects/kwatch.js"></script>
-<script src="assets/js/data/projects/larynx.js"></script>
-<!-- 2. code: helpers, page renderers, router -->
-<script src="assets/js/app.js"></script>
-</body>
-</html>

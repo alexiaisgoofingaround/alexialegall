@@ -22,16 +22,15 @@ h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:400;color:var(--deep);
 
 /* ================= 3. LAYOUT: nav + pages ================= */
 nav{display:flex;justify-content:space-between;align-items:center;padding:20px 40px;flex-wrap:wrap;gap:8px;max-width:1120px;margin:0 auto}
-nav b{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:20px;color:var(--deep)}
+nav .brand{font-family:Newsreader,Georgia,serif;font-weight:500;font-size:20px;color:var(--deep);text-decoration:none}
 nav .tabs{display:flex;gap:6px}
-nav .tabs button{border:0;background:none;padding:6px 12px;border-radius:20px;color:var(--soft)}
-nav .tabs button[aria-current="page"]{background:var(--deep);color:var(--bg)}
-.page{display:none}
-.page.on{display:block}
+nav .tabs a{padding:6px 12px;border-radius:20px;color:var(--soft);text-decoration:none}
+nav .tabs a[aria-current="page"]{background:var(--deep);color:var(--bg)}
+[hidden]{display:none!important}
 
 /* ================= 4. COMPONENTS: chips ================= */
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{border:0;background:var(--pane);padding:5px 12px;border-radius:20px;font-size:14px}
+.chip{display:inline-block;border:0;background:var(--pane);padding:5px 12px;border-radius:20px;font-size:14px;text-decoration:none;color:var(--fg)}
 .chip:hover{background:var(--deep);color:var(--bg)}
 .chip .n{opacity:.6;font-size:12px;margin-left:4px}
 .skillgroup{margin-bottom:18px}
@@ -62,7 +61,8 @@ nav .tabs button[aria-current="page"]{background:var(--deep);color:var(--bg)}
 .entry .more{padding:0 0 18px 140px}
 .entry .more ul{margin:0 0 12px;padding-left:18px;max-width:62ch}
 .entry .more li{margin-bottom:4px}
-.seeproj{display:block;margin-top:10px;border:0;background:none;padding:0;color:var(--deep);text-decoration:underline;font-size:14px}
+.seeproj{display:block;margin-top:10px;color:var(--deep);text-decoration:underline;font-size:14px}
+.langs{margin:0}
 .cv.dim .entry:not(.hit){opacity:.35}
 .cv.dim .entry.hit{opacity:1}
 
@@ -76,21 +76,20 @@ nav .tabs button[aria-current="page"]{background:var(--deep);color:var(--bg)}
 .filter button{border:0;background:var(--pane);padding:7px 14px;border-radius:20px;font-size:14px}
 .filter button[aria-pressed="true"]{background:var(--deep);color:var(--bg)}
 .mosaic{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:220px;gap:12px;padding:16px 40px 64px;max-width:1120px;margin:0 auto}
-.tile{position:relative;overflow:hidden;color:#fff;display:flex;align-items:flex-end;padding:18px;border:0;text-align:left;border-radius:2px}
+.tile{position:relative;overflow:hidden;color:#fff;display:flex;align-items:flex-end;padding:18px;border:0;text-align:left;text-decoration:none;border-radius:2px}
 .tile.big{grid-column:span 2;grid-row:span 2}
 .tile::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 40%,#000a)}
 .tile>div{position:relative;z-index:1}
 .tile h3{color:#fff;font-size:23px;margin-bottom:2px}
 .tile.big h3{font-size:34px}
 .tile small{font-size:13px;opacity:.9}
-.tile.tpl{background:var(--pane)!important;color:var(--soft);border:2px dashed var(--line)}
-.tile.tpl::after{display:none}
-.tile.tpl h3{color:var(--soft)}
-.empty{grid-column:1/-1;color:var(--soft);padding:20px 0}
+.mosaic.filtered .tile.big{grid-column:auto;grid-row:auto}
+.mosaic.filtered .tile.big h3{font-size:23px}
+.empty{color:var(--soft);padding:4px 40px 40px;max-width:1120px;margin:0 auto}
 
 /* ================= 7. PAGE: PROJECT DETAIL ================= */
 .detail{max-width:820px;margin:0 auto;padding:40px 40px 64px}
-.back{border:0;background:none;color:var(--soft);padding:0;margin-bottom:20px;font-size:14px}
+.back{display:inline-block;color:var(--soft);margin-bottom:20px;font-size:14px;text-decoration:none}
 .detail h1{font-size:44px;line-height:1.05;margin-bottom:8px}
 .detail .meta{color:var(--soft);margin:0 0 18px}
 .detail h2{font-size:26px;margin:40px 0 12px;padding-top:16px;border-top:1px solid var(--line)}
@@ -98,15 +97,30 @@ nav .tabs button[aria-current="page"]{background:var(--deep);color:var(--bg)}
 figure{margin:0 0 22px}
 figure .ph{aspect-ratio:16/9;display:grid;place-items:center;color:#ffffffcc;font-size:14px}
 figure img{width:100%;height:auto;display:block}
-figure video, figure iframe{width:100%;aspect-ratio:16/9;border:0;display:block;background:#000}
+figure video,figure iframe{width:100%;aspect-ratio:16/9;border:0;display:block;background:#000}
 figcaption{font-size:14px;color:var(--soft);margin-top:8px;max-width:62ch}
 pre{background:var(--pane);padding:14px;overflow-x:auto;font-size:13px;border-radius:2px;margin:12px 0}
 .res{list-style:none;padding:0;margin:0}
 .res li{display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
 .res span{color:var(--soft);font-size:14px}
 .subs{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
-.subs button{border:0;background:var(--pane);text-align:left;padding:14px}
-.subs button b{display:block;font-family:Newsreader,serif;font-weight:500;font-size:18px;color:var(--deep)}
+.subs a{background:var(--pane);padding:14px;text-decoration:none;color:var(--fg)}
+.subs a b{display:block;font-family:Newsreader,serif;font-weight:500;font-size:18px;color:var(--deep)}
+
+/* ---- free-form content inside a project page ---- */
+.detail .lead{font-size:18px;line-height:1.55}
+.detail h3{font-size:21px;margin:28px 0 8px}
+.detail ul,.detail ol{max-width:62ch;padding-left:22px}
+.detail li{margin-bottom:4px}
+.detail p a,.detail li a,.detail td a,.detail figcaption a{color:var(--deep)}
+.detail blockquote{margin:0 0 22px;padding:2px 0 2px 16px;border-left:3px solid var(--line);color:var(--soft);max-width:62ch}
+.detail code{background:var(--pane);padding:1px 5px;border-radius:2px;font-size:.92em}
+.detail pre code{background:none;padding:0}
+.detail table{border-collapse:collapse;display:block;overflow-x:auto;max-width:100%;margin:0 0 22px;font-size:15px}
+.detail th,.detail td{padding:8px 16px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
+.detail thead th,.detail tr:first-child th{border-top:0;border-bottom:2px solid var(--deep);font-weight:600;color:var(--deep)}
+.detail .muted{color:var(--soft)}
+mjx-container[display="true"]{overflow-x:auto;overflow-y:hidden;max-width:100%}
 
 /* ================= 8. RESPONSIVE ================= */
 @media (max-width:760px){
@@ -115,6 +129,7 @@ pre{background:var(--pane);padding:14px;overflow-x:auto;font-size:13px;border-ra
   .entry summary{grid-template-columns:1fr 24px;gap:4px}
   .entry .when{grid-column:1/-1}
   .entry .more{padding-left:0}
+  .empty{padding-left:20px;padding-right:20px}
   .mosaic{grid-template-columns:1fr 1fr}
   .tile.big{grid-column:1/-1}
   .hero h1{font-size:38px}

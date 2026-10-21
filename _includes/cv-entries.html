@@ -1,0 +1,19 @@
+{%- for e in include.list -%}
+<details class="entry" data-skills="{{ e.skills | join: ' ' }}">
+  <summary>
+    <span class="when">{{ e.when }}</span>
+    <span><h3>{{ e.title }}</h3><span class="org">{{ e.org }}</span><span class="one">{{ e.summary }}</span></span>
+    <span class="plus" aria-hidden="true">+</span>
+  </summary>
+  <div class="more">
+    {% if e.details %}<ul>{% for d in e.details %}<li>{{ d }}</li>{% endfor %}</ul>{% endif %}
+    <div class="chips">{% for s in e.skills %}{% include chip.html id=s %}{% endfor %}</div>
+    {% for slug in e.projects %}
+      {% assign target = '/projects/' | append: slug | append: '/' %}
+      {% for p in site.projects %}{% if p.url == target %}
+      <a class="seeproj" href="{{ p.url | relative_url }}">See project: {{ p.title }}</a>
+      {% endif %}{% endfor %}
+    {% endfor %}
+  </div>
+</details>
+{%- endfor -%}

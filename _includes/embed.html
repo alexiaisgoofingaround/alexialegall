@@ -1,0 +1,4 @@
+<figure>
+  <iframe src="{{ include.url }}" title="{{ include.caption | default: 'Embedded video' | strip_html | escape }}" loading="lazy" allowfullscreen></iframe>
+  {% if include.caption %}<figcaption>{{ include.caption }}</figcaption>{% endif %}
+</figure>

@@ -1,0 +1,32 @@
+# Skills shown in the CV sidebar and the Projects filter.
+# id = the tag used in cv.yml and in project front matter. Keep ids lowercase, no spaces.
+- group: "Mechanical"
+  items:
+    - id: "mechanical"
+      label: "Mechanical design"
+    - id: "cad"
+      label: "CAD & GD&T"
+    - id: "dfm"
+      label: "DFM"
+- group: "Simulation"
+  items:
+    - id: "fea"
+      label: "FEA (Ansys, COMSOL)"
+    - id: "python"
+      label: "Python / MATLAB"
+- group: "Hands-on"
+  items:
+    - id: "prototyping"
+      label: "Rapid prototyping"
+    - id: "molding"
+      label: "Silicone molding"
+    - id: "testrigs"
+      label: "Test rigs"
+    - id: "3dprinting"
+      label: "3D printing"
+- group: "Domain"
+  items:
+    - id: "fluidic"
+      label: "Soft & fluidic systems"
+    - id: "medical"
+      label: "Medical devices"

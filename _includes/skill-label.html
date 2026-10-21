@@ -1,0 +1,3 @@
+{%- assign label = include.id -%}
+{%- for g in site.data.skills -%}{%- for s in g.items -%}{%- if s.id == include.id -%}{%- assign label = s.label -%}{%- endif -%}{%- endfor -%}{%- endfor -%}
+{{- label -}}

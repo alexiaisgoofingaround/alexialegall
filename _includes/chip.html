@@ -1,0 +1,2 @@
+{%- capture label %}{% include skill-label.html id=include.id %}{% endcapture -%}
+<a class="chip" href="{{ '/projects/' | relative_url }}#{{ include.id }}" data-skill="{{ include.id }}">{{ label | strip }}</a>

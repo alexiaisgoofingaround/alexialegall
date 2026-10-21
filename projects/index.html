@@ -1,0 +1,25 @@
+---
+layout: default
+title: Projects
+---
+<div class="filter" id="filter" role="group" aria-label="Filter by skill">
+  <button data-f="all" aria-pressed="true">All</button>
+  {% for g in site.data.skills %}{% for s in g.items %}
+    {% assign n = 0 %}
+    {% for p in site.projects %}{% if p.skills contains s.id %}{% assign n = n | plus: 1 %}{% endif %}{% endfor %}
+    {% if n > 0 %}<button data-f="{{ s.id }}" aria-pressed="false">{{ s.label }}</button>{% endif %}
+  {% endfor %}{% endfor %}
+</div>
+
+<div class="mosaic" id="mosaic">
+  {% assign list = site.projects | sort: "order" %}
+  {% for p in list %}
+  <a class="tile{% if p.featured %} big{% endif %}" href="{{ p.url | relative_url }}" style="background:{{ p.color }}" data-skills="{{ p.skills | join: ' ' }}">
+    <div>
+      <h3>{{ p.title }}</h3>
+      <small>{{ p.when }}{% for s in p.skills limit: 3 %}{% if forloop.first %} · {% endif %}{% capture lab %}{% include skill-label.html id=s %}{% endcapture %}{{ lab | strip }}{% unless forloop.last %}, {% endunless %}{% endfor %}</small>
+    </div>
+  </a>
+  {% endfor %}
+</div>
+<p class="empty" id="empty" hidden>No project uses this skill yet.</p>

@@ -1,0 +1,10 @@
+{%- assign src = include.src -%}
+<figure>
+  {% if src %}
+    {% if src contains '://' %}<img src="{{ src }}" alt="{{ include.alt | default: '' | escape }}" loading="lazy">
+    {% else %}<img src="{{ src | relative_url }}" alt="{{ include.alt | default: '' | escape }}" loading="lazy">{% endif %}
+  {% else %}
+    <div class="ph" style="background:{{ include.color | default: '#6F8F8A' }}">image placeholder</div>
+  {% endif %}
+  {% if include.caption %}<figcaption>{{ include.caption }}</figcaption>{% endif %}
+</figure>

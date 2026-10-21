@@ -1,0 +1,34 @@
+---
+layout: default
+---
+<article class="detail">
+  <a class="back" href="{{ '/projects/' | relative_url }}">← All projects</a>
+  <h1>{{ page.title }}</h1>
+  <p class="meta">{{ page.when }}</p>
+  <div class="chips">{% for s in page.skills %}{% include chip.html id=s %}{% endfor %}</div>
+  {% if page.description %}<p class="lead">{{ page.description }}</p>{% endif %}
+
+  {{ content }}
+
+  {% if page.subs %}
+  <h2>Sub-projects</h2>
+  <div class="subs">
+    {% for slug in page.subs %}
+      {% assign target = '/projects/' | append: slug | append: '/' %}
+      {% for p in site.projects %}{% if p.url == target %}
+      <a href="{{ p.url | relative_url }}"><b>{{ p.title }}</b>{{ p.when }}</a>
+      {% endif %}{% endfor %}
+    {% endfor %}
+  </div>
+  {% endif %}
+
+  {% if page.resources %}
+  <h2>Resources</h2>
+  <ul class="res">
+    {% for r in page.resources %}
+    {% assign first = r.url | slice: 0 %}
+    <li>{% if r.url contains '://' or first == '#' %}<a href="{{ r.url }}">{{ r.label }}</a>{% else %}<a href="{{ r.url | relative_url }}">{{ r.label }}</a>{% endif %}<span>{{ r.kind }}</span></li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</article>

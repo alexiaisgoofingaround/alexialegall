@@ -1,0 +1,91 @@
+# CV data. Dates are quoted on purpose (so "2022" stays text).
+languages:
+  - lang: "French"
+    level: "native"
+  - lang: "English"
+    level: "C1"
+  - lang: "German"
+    level: "B2"
+  - lang: "Italian"
+    level: "B1"
+
+experience:
+  - when: "2022–2026"
+    title: "PhD researcher, soft actuation"
+    org: "BioRobotics Institute, Scuola Superiore Sant'Anna, Pisa"
+    summary: "Design rules for soft pneumatic actuators."
+    details:
+      - "Clinical constraints of minimally invasive surgery translated into system specifications."
+      - "Static and dynamic FEA in Ansys; hyperelastic material identification."
+      - "Fabrication pipeline from CAD and mold design to silicone molding."
+      - "Two closed-loop instrumented rigs (fluidic and thermal)."
+      - "Co-supervised MSc theses."
+    skills: ["mechanical", "fea", "prototyping", "molding", "testrigs", "python"]
+    projects: ["phd"]   # project file names (without .html)
+  - when: "2025–2026"
+    title: "Visiting researcher, fluidic logic"
+    org: "Oxford Robotics Institute"
+    summary: "Electronics-free fluidic switching."
+    details:
+      - "Bistable valves using PolyJet multi-material properties."
+      - "Toolbox from Boolean logic to 3D-printable geometry."
+    skills: ["fluidic", "prototyping", "cad"]
+    projects: ["valves"]   # project file names (without .html)
+  - when: "2022"
+    title: "Research engineer intern"
+    org: "GIPSA-lab, Grenoble"
+    summary: "Fluidic actuator for an artificial larynx."
+    details:
+      - "Designed, fabricated and characterised the prototype through iterative prototyping."
+    skills: ["prototyping", "medical", "fluidic"]
+    projects: []   # project file names (without .html)
+  - when: "2021–2022"
+    title: "Mechanical engineer intern"
+    org: "PKVitality, Paris"
+    summary: "K'watch glucose-monitoring wearable."
+    details:
+      - "Mechanical design under biocompatibility constraints."
+      - "Design validation with clinician and end-user feedback."
+    skills: ["mechanical", "cad", "medical", "dfm"]
+    projects: []   # project file names (without .html)
+
+education:
+  - when: "2017–2022"
+    title: "Engineering degree, mechanical design + MSc mechatronics"
+    org: "Université de Technologie de Compiègne"
+    summary: "GPA 4.66/5."
+    details:
+      - "Core: mechanical design, tolerancing, FEA, mechatronics."
+      - "Minor in philosophy, technology and cognition."
+      - "Erasmus exchange, TU Hamburg (2021)."
+      - "Equipment manager at FabLab UTC."
+    skills: ["mechanical", "cad", "fea"]
+    projects: []   # project file names (without .html)
+  - when: "2024"
+    title: "BEST summer school, 1st prize"
+    org: "IHU Strasbourg"
+    summary: "Business, engineering and surgical technologies."
+    details:
+      - "Deployable endoscopic device concept for endometriosis screening; won the team competition."
+    skills: ["medical", "mechanical"]
+    projects: []   # project file names (without .html)
+  - when: "2023"
+    title: "Summer school on surgical robotics"
+    org: "LIRMM, Montpellier"
+    summary: "Surgical robotics methods and systems."
+    details:
+      - "Add what you covered or built there."
+    skills: ["medical"]
+    projects: []   # project file names (without .html)
+
+hobbies:
+  - title: "CanSat lead referee"
+    text: "ESA/ESERO student competition, 2020–2026."
+  - title: "Soft Robotics Newsletter"
+    text: "Co-manager."
+  - title: "FabLab UTC"
+    text: "Equipment manager and trainer, 2019–2022."
+  - title: "Sports"
+    text: "Mountaineering, running"
+  - title: "Crafts"
+    text: "3D printing, crochet, painting, photography"

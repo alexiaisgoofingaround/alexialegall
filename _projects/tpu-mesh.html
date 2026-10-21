@@ -1,0 +1,54 @@
+---
+title: "Generative design of TPU mesh structures"
+when: "Aug. 2026"
+order: 5
+color: "#2E5560"
+skills: ["3dprinting", "python"]
+description: "Most of my thesis work was on origami, but kirigami is nonetheless interesting. This project was a short exploration into generalising the design of TPU mesh structures, the kind you often find on sharing platforms like Thingiverse. Instead of drawing each one by hand, I wrote a small PyQt configurator that generates disc-like kirigami meshes from a handful of parameters (concentric dashed rings, a hub, a flange, an optional opening and pull handles), previews them layer by layer, and exports a printable STL."
+resources:
+  - {label: "Kirigami disc configurator (Python)", url: "assets/files/kirigami_configurator.py", kind: "code"}
+---
+
+<h2>Results</h2>
+
+<p>A mesh is a stack of concentric rings around a hub, closed by a flange. The base contour is one of three shapes (circle, slot, rounded rectangle), and every ring is a scaled copy of it: $C_i(t) = r_i\,C(t)$ with $r_i = i\,w$, where $w$ is the ring width and $t\in[0,1)$ runs along the perimeter. Dashed and solid rings alternate in a user-defined pattern ($n_{dash}$ dashed rings, then $n_{solid}$ solid ones). For the slot and rounded rectangle the rings are homothetic rather than offset curves, so the radial ring width is not uniform around the contour.</p>
+
+{% include figure.html caption="Anatomy of a generated disc: hub, dashed rings, solid ring, flange, opening (red) and handles (green). TODO: screenshot of the 2D preview." color="#3B6B78" %}
+
+<p>Each dashed ring is cut into $N$ dashes separated by gaps. With $d_i$ the solid fraction (duty) of ring $i$, dash $k$ occupies $t\in\left[\varphi_i + \tfrac{k}{N} + \tfrac{1-d_i}{2N},\; \varphi_i + \tfrac{k}{N} + \tfrac{1+d_i}{2N}\right]$. The phase $\varphi_i = \tfrac{1}{2N}\left(\lfloor i/2 \rfloor \bmod 2\right)$ shifts every second pair of rings by half a period, so slits in neighbouring rings are staggered like bricks. This stagger is what makes the structure kirigami: the ligaments between slits can bend and the disc opens out of plane.</p>
+
+<p>The duty varies linearly from the inner to the outer dashed ring, $d_i = d_{in} + (d_{out}-d_{in})\,\dfrac{i-n_h}{n_b-n_h-1}$, where $n_h$ is the number of hub rings and $n_b$ the number of body rings. On a circle, dash and gap lengths are $s_i = 2\pi r_i d_i / N$ and $g_i = 2\pi r_i (1-d_i)/N$. A linear $d_i$ does not keep $s_i$ constant. A law $d_i \propto 1/r_i$ would, and it is a natural next step.</p>
+
+<p>The part is a two-level height field. The hub, the thick flange sectors and the handles are extruded to $h_{struct}$, and the rings to $h_{ring}$ (thinner, so they flex). The slice view in the configurator cuts this field at a height $z$, which makes it possible to inspect what a given print layer contains.</p>
+
+<p>The flange is segmented on the same dash pattern: it is thick ($h_{struct}$) where it lines up with a dash and thinned ($h_{ring}$) in the gaps, controlled by a flange duty $d_f$. With $d_f = 1$ it is a continuous thick ring. Handles are anchored on this ring, so $d_f$ decides whether a handle is carried by a continuous ring or by isolated thick segments.</p>
+
+{% include figure.html caption="Integration of the handles into the flange, slice at z = 1.0 mm (between h_ring and h_struct, so only structural material is left). Left: flange duty 1.0 (continuous ring). Right: flange duty 0.6 (segmented). TODO: two screenshots with identical other parameters; check whether the anchors land on thick segments or on gaps." color="#2E5560" %}
+
+<p>TODO: state the finding (where the handle anchors land relative to the thick segments, and how this affects load transfer and printability), ideally backed by a pull test.</p>
+
+<p>A handle is a quadratic Bézier arc between two anchors $A$ and $B$ on the flange, separated by a chosen span. Its control point is $Q = M + \tfrac{h(1+\kappa)}{2}\,\hat n$, with $M$ the chord midpoint, $\hat n$ the outward normal, $h$ the height parameter and $\kappa$ the curvature, and the curve is $\mathbf{B}(\tau) = (1-\tau)^2 A + 2\tau(1-\tau)\,Q + \tau^2 B$. The arc is then thickened by $\pm w_h/2$ and extruded to $h_{struct}$. The apex of the arc sits at $\tfrac{h(1+\kappa)}{4}$ from the chord, so the loop reaches height $h$ only for $\kappa = 3$.</p>
+
+<p>An optional opening removes an angular sector $\theta$, centred at a chosen angle, over a chosen range of rings. The dashes are clipped against the sector and solid rings are split, which leaves a gap through the mesh.</p>
+
+{% include figure.html caption="Parameter gallery: three base shapes, with and without opening and handles. TODO." color="#4A7F8C" %}
+
+<h2>Code</h2>
+
+<pre><code>def dash_intervals(n_seg, duty, phase):
+    seg = 1/n_seg; sol = seg*duty; gap = seg*(1-duty)
+    return [(phase + k*seg + gap/2, phase + k*seg + gap/2 + sol)
+            for k in range(n_seg)]
+
+def flange_sectors(n_seg, duty, phase):
+    # thick on the dashes, thinned in the gaps; duty&gt;=1 -&gt; one thick ring
+    if duty &gt;= 0.999: return [(0.0, 1.0, True)]
+    iv = dash_intervals(n_seg, duty, phase)
+    gaps = [(iv[k][1], iv[k+1][0] if k+1 &lt; n_seg else iv[0][0]+1.0, False)
+            for k in range(n_seg)]
+    return [(a, b, True) for a, b in iv] + gaps
+
+# handle: quadratic Bezier between two flange anchors
+out = hdl_height*(0.5 + 0.5*hdl_curv)
+cp  = midpoint + normal*out
+pt  = u*u*A + 2*u*t*cp + t*t*B      # u = 1 - t</code></pre>
