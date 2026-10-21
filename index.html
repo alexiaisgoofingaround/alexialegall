@@ -26,11 +26,12 @@
   <div class="tabs"><button data-go="cv">CV</button><button data-go="projects">Projects</button></div>
 </nav>
 
-<!-- ============ PAGE 1: CV (lists filled by app.js) ============ -->
+<!-- ============ PAGE 1: CV (frame + lists filled by app.js) ============ -->
 <div class="page" id="cv">
   <div class="hero">
     <svg viewBox="0 0 1000 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
       <rect width="1000" height="340" fill="var(--hero)"/>
+      <!-- decorative folded-paper shape; replace with a real photo later -->
       <g fill="#C3D6DB" stroke="#9DBAC2" stroke-width="2" opacity=".8"><path d="M560 300 L640 90 L720 300 L800 90 L880 300 L960 90 L1000 200 V300 Z"/></g>
     </svg>
     <div class="cap">
@@ -43,11 +44,12 @@
       <section>
         <h2>Skills</h2>
         <p class="hint">Hover a skill to see where you used it. Click it to see the projects.</p>
-        <div id="skills"></div>
+        <div id="skills"></div>   <!-- filled by renderCV() -->
       </section>
       <section>
         <h2>Languages</h2>
         <div id="lang"></div>
+        <p style="margin:0">French, native<br>English, C1<br>German, B2<br>Italian, B1</p>
       </section>
     </aside>
     <main>
@@ -58,7 +60,7 @@
   </div>
 </div>
 
-<!-- ============ PAGE 2: PROJECTS ============ -->
+<!-- ============ PAGE 2: PROJECTS (filter bar + mosaic, both filled by JS) ============ -->
 <div class="page" id="projects">
   <div class="filter" id="filter" role="group" aria-label="Filter by skill"></div>
   <div class="mosaic" id="mosaic"></div>
