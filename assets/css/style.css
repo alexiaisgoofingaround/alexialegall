@@ -98,6 +98,7 @@ nav .tabs button[aria-current="page"]{background:var(--deep);color:var(--bg)}
 figure{margin:0 0 22px}
 figure .ph{aspect-ratio:16/9;display:grid;place-items:center;color:#ffffffcc;font-size:14px}
 figure img{width:100%;height:auto;display:block}
+figure video, figure iframe{width:100%;aspect-ratio:16/9;border:0;display:block;background:#000}
 figcaption{font-size:14px;color:var(--soft);margin-top:8px;max-width:62ch}
 pre{background:var(--pane);padding:14px;overflow-x:auto;font-size:13px;border-radius:2px;margin:12px 0}
 .res{list-style:none;padding:0;margin:0}

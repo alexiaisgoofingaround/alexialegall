@@ -71,10 +71,14 @@ function renderDetail(id) {
   const p = PROJ.find(x => x.id === id);
   if (!p) return go('projects');
 
+  const block = ([kind, a, b]) => {
+  if (kind === "fig")   return `<figure><div class="ph" style="background:${b}">image placeholder</div><figcaption>${a}</figcaption></figure>`;
+  if (kind === "video") return `<figure><video controls playsinline preload="metadata" src="${b}"></video><figcaption>${a}</figcaption></figure>`;
+  if (kind === "embed") return `<figure><iframe src="${b}" title="${a}" loading="lazy" allowfullscreen></iframe><figcaption>${a}</figcaption></figure>`;
+  return `<p>${a}</p>`;
+};
   const results = p.results.length
-    ? p.results.map(([kind, a, b]) => kind === "fig"
-        ? `<figure><div class="ph" style="background:${b}">image placeholder</div><figcaption>${a}</figcaption></figure>`
-        : `<p>${a}</p>`).join('')
+    ? p.results.map(block).join('')
     : `<p style="color:var(--soft)">No results written yet.</p>`;
 
   const subs = p.subs ? `
