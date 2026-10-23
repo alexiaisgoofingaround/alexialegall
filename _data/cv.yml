@@ -21,7 +21,7 @@ experience:
       - "Two closed-loop instrumented rigs (fluidic and thermal)."
       - "Co-supervised MSc theses."
     skills: ["mechanical", "fea", "prototyping", "molding", "testrigs", "python"]
-    projects: ["phd"]   # project file names (without .html)
+    projects: []   # PhD project temporarily unpublished
   - when: "2025–2026"
     title: "Visiting researcher, fluidic logic"
     org: "Oxford Robotics Institute"

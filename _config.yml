@@ -1,5 +1,5 @@
 title: Alexia Le Gall
-description: Mechanical engineer and PhD candidate in bio-robotics. CV and projects.
+description: Mechanical engineer and researcher. CV, skills and selected projects.
 
 # Project site at https://alexiaisgoofingaround.github.io/alexialegall/
 # If you rename the repo to alexiaisgoofingaround.github.io (or use a custom domain), set baseurl: ""
@@ -16,6 +16,7 @@ defaults:
     values: {layout: project}
 
 exclude:
+  - _drafts_projects/
   - README.md
   - Gemfile
   - Gemfile.lock
