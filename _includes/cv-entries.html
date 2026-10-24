@@ -1,19 +1,28 @@
-{%- for e in include.list -%}
-<details class="entry" data-skills="{{ e.skills | join: ' ' }}">
-  <summary>
-    <span class="when">{{ e.when }}</span>
-    <span><h3>{{ e.title }}</h3><span class="org">{{ e.org }}</span><span class="one">{{ e.summary }}</span></span>
-    <span class="plus" aria-hidden="true">+</span>
-  </summary>
-  <div class="more">
-    {% if e.details %}<ul>{% for d in e.details %}<li>{{ d }}</li>{% endfor %}</ul>{% endif %}
-    <div class="chips">{% for s in e.skills %}{% include chip.html id=s %}{% endfor %}</div>
-    {% for slug in e.projects %}
-      {% assign target = '/projects/' | append: slug | append: '/' %}
-      {% for p in site.projects %}{% if p.url == target %}
-      <a class="seeproj" href="{{ p.url | relative_url }}">See project: {{ p.title }}</a>
-      {% endif %}{% endfor %}
-    {% endfor %}
-  </div>
-</details>
-{%- endfor -%}
+{%- comment -%} One timeline. Wide screens: always open. Phones: tap the + to open. {%- endcomment -%}
+<ol class="timeline">
+{%- for e in include.list %}
+  <li>
+    <details class="entry" open>
+      <summary>
+        <span class="entry-head">
+          <span class="when">{{ e.when }}</span>
+          <span class="entry-title">{{ e.title }}</span>
+          <span class="org">{{ e.org }}</span>
+        </span>
+        <span class="round-btn" aria-hidden="true">{% include icon.html name="plus" %}</span>
+      </summary>
+      <div class="entry-more">
+        {% if e.summary %}<p class="one">{{ e.summary }}</p>{% endif %}
+        {% if e.details %}<ul>{% for d in e.details %}<li>{{ d }}</li>{% endfor %}</ul>{% endif %}
+        {% if e.skills %}<div class="chips">{% for s in e.skills %}{% include chip.html id=s %}{% endfor %}</div>{% endif %}
+        {% for slug in e.projects %}
+          {% assign target = '/projects/' | append: slug | append: '/' %}
+          {% for p in site.projects %}{% if p.url == target %}
+          <a class="seeproj" href="{{ p.url | relative_url }}">See project: {{ p.title }}</a>
+          {% endif %}{% endfor %}
+        {% endfor %}
+      </div>
+    </details>
+  </li>
+{%- endfor %}
+</ol>

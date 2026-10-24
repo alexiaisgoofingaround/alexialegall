@@ -1,50 +1,36 @@
 ---
 layout: default
-title: CV
+description: Mechanical engineer and PhD candidate in bio-robotics. CV, skills and selected projects.
 ---
-<div class="hero">
-  <svg viewBox="0 0 1000 340" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <rect width="1000" height="340" fill="var(--hero)"/>
-    <!-- decorative folded-paper shape; replace with a real photo later -->
-    <g fill="#C3D6DB" stroke="#9DBAC2" stroke-width="2" opacity=".8"><path d="M560 300 L640 90 L720 300 L800 90 L880 300 L960 90 L1000 200 V300 Z"/></g>
-  </svg>
-  <div class="cap">
-    <h1>Alexia Le Gall</h1>
-    <p>Mechanical engineer and PhD candidate in bio-robotics, with hands-on experience across the full development cycle: translating clinical requirements into system specifications, design, multiphysics modelling, fabrication and experimental validation. Experienced with the constraints specific to medical devices. Used to working and communicating across disciplines, and to coordinating multi-component developments.</p>
-  </div>
-</div>
+{%- assign photo_path = site.author.photo | default: 'assets/img/profile.jpg' -%}
+{%- capture photo_abs %}/{{ photo_path }}{% endcapture -%}
+{%- assign has_photo = site.static_files | where: "path", photo_abs | size -%}
+<main class="wrap home">
+  <section class="hero">
+    <div class="hero-text">
+      <p class="kicker">{{ site.author.role }}</p>
+      <h1>{{ site.author.tagline }}</h1>
+      <!-- Plain HTML: edit this paragraph freely. -->
+      <p class="hero-lead">Mechanical engineer and PhD candidate in bio-robotics, with hands-on experience across the full development cycle: translating clinical requirements into system specifications, design, multiphysics modelling, fabrication and experimental validation. Experienced with the constraints specific to medical devices. Used to working and communicating across disciplines, and to coordinating multi-component developments.</p>
+      {% include contact-links.html %}
+    </div>
 
-<div class="cv">
-  <aside>
-    <section>
-      <h2>Skills</h2>
-      <p class="hint">Hover a skill to see where you used it. Click it to see the projects.</p>
-      <div id="skills">
-        {% for g in site.data.skills %}
-        <div class="skillgroup"><h3>{{ g.group }}</h3>
-          <div class="chips">
-            {% for s in g.items %}
-              {% assign n = 0 %}
-              {% for p in site.projects %}{% if p.skills contains s.id %}{% assign n = n | plus: 1 %}{% endif %}{% endfor %}
-              <a class="chip" href="{{ '/projects/' | relative_url }}#{{ s.id }}" data-skill="{{ s.id }}">{{ s.label }}<span class="n">{{ n }}</span></a>
-            {% endfor %}
-          </div>
-        </div>
-        {% endfor %}
-      </div>
-    </section>
-    <section>
-      <h2>Languages</h2>
-      <p class="langs">{% for l in site.data.cv.languages %}{{ l.lang }}, {{ l.level }}{% unless forloop.last %}<br>{% endunless %}{% endfor %}</p>
-    </section>
-  </aside>
-  <main>
-    <section><h2>Experience</h2>{% include cv-entries.html list=site.data.cv.experience %}</section>
-    <section><h2>Education</h2>{% include cv-entries.html list=site.data.cv.education %}</section>
-    <section><h2>Engagement and hobbies</h2>
-      <div class="hobbies">
-        {% for h in site.data.cv.hobbies %}<div class="hobby"><h3>{{ h.title }}</h3><p>{{ h.text }}</p></div>{% endfor %}
-      </div>
-    </section>
-  </main>
-</div>
+    {% if has_photo > 0 %}
+    <figure class="hero-photo"><img src="{{ photo_path | relative_url }}" alt="{{ site.author.photo_alt | escape }}"></figure>
+    {% else %}
+    <figure class="hero-photo no-photo" aria-hidden="true"></figure>
+    {% endif %}
+  </section>
+
+  <ul class="focus">
+    {% for f in site.data.focus %}
+    <li>
+      <a href="{{ '/projects/' | relative_url }}#{{ f.filter }}">
+        <span class="focus-ico">{% include icon.html name=f.icon %}</span>
+        <span class="focus-title">{{ f.title }}</span>
+        <span class="focus-text">{{ f.text }}</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+</main>

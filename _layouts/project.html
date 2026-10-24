@@ -1,34 +1,66 @@
 ---
 layout: default
 ---
-<article class="detail">
-  <a class="back" href="{{ '/projects/' | relative_url }}">← All projects</a>
-  <h1>{{ page.title }}</h1>
-  <p class="meta">{{ page.when }}</p>
-  <div class="chips">{% for s in page.skills %}{% include chip.html id=s %}{% endfor %}</div>
-  {% if page.description %}<p class="lead">{{ page.description }}</p>{% endif %}
+{%- assign story = content | strip -%}
+<main class="wrap project">
+  <a class="back" href="{{ '/projects/' | relative_url }}">{% include icon.html name="back" %}All projects</a>
 
-  {{ content }}
+  <section class="project-hero">
+    <figure class="project-cover">{% include cover.html p=page %}</figure>
+    <div class="project-intro">
+      <p class="kicker">{{ page.when }}</p>
+      <h1>{{ page.title }}</h1>
+      <div class="chips">{% for s in page.skills %}{% include chip.html id=s %}{% endfor %}</div>
+      {% if page.description %}<p class="lead">{{ page.description }}</p>{% endif %}
+    </div>
+  </section>
+
+  {% if story != "" %}
+  <details class="story" id="story">
+    <summary>
+      <span>
+        <span class="story-title">The full story</span>
+        <span class="story-hint">Method, results, figures and videos</span>
+      </span>
+      <span class="round-btn round-btn-lg" aria-hidden="true">{% include icon.html name="plus" %}</span>
+    </summary>
+    <div class="prose">
+      {{ content }}
+    </div>
+  </details>
+  {% endif %}
 
   {% if page.subs %}
-  <h2>Sub-projects</h2>
-  <div class="subs">
-    {% for slug in page.subs %}
-      {% assign target = '/projects/' | append: slug | append: '/' %}
-      {% for p in site.projects %}{% if p.url == target %}
-      <a href="{{ p.url | relative_url }}"><b>{{ p.title }}</b>{{ p.when }}</a>
-      {% endif %}{% endfor %}
-    {% endfor %}
-  </div>
+  <section class="project-subs">
+    <h2>Sub-projects</h2>
+    <div class="subs">
+      {% for slug in page.subs %}
+        {% assign target = '/projects/' | append: slug | append: '/' %}
+        {% for p in site.projects %}{% if p.url == target %}
+        <a href="{{ p.url | relative_url }}"><b>{{ p.title }}</b>{{ p.when }}</a>
+        {% endif %}{% endfor %}
+      {% endfor %}
+    </div>
+  </section>
   {% endif %}
 
-  {% if page.resources %}
-  <h2>Resources</h2>
-  <ul class="res">
-    {% for r in page.resources %}
-    {% assign first = r.url | slice: 0 %}
-    <li>{% if r.url contains '://' or first == '#' %}<a href="{{ r.url }}">{{ r.label }}</a>{% else %}<a href="{{ r.url | relative_url }}">{{ r.label }}</a>{% endif %}<span>{{ r.kind }}</span></li>
-    {% endfor %}
-  </ul>
-  {% endif %}
-</article>
+  <div class="project-foot">
+    {% if page.resources %}
+    <section class="docs">
+      <h2>Documents</h2>
+      <ul class="res">
+        {% for r in page.resources %}
+        {%- capture href %}{% include url.html u=r.url %}{% endcapture %}
+        <li><a href="{{ href | strip }}">{% if r.url contains '://' %}{% include icon.html name="external" %}{% else %}{% include icon.html name="file" %}{% endif %}<span class="res-label">{{ r.label }}</span><span class="res-kind">{{ r.kind }}</span></a></li>
+        {% endfor %}
+      </ul>
+    </section>
+    {% endif %}
+
+    <aside class="contact-card">
+      <h2>Get in touch</h2>
+      <p>Questions about this project, or an idea to build on? I'm happy to talk.</p>
+      {% include contact-links.html %}
+    </aside>
+  </div>
+</main>

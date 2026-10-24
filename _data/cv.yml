@@ -78,6 +78,17 @@ education:
     skills: ["medical"]
     projects: []   # project file names (without .html)
 
+# Edit titles / venues / urls. url "#" = no link yet.
+publications:
+  - year: "2026"
+    title: "Crease-Encoded Soft Origami Chambers"
+    venue: "Advanced Intelligent Systems"
+    url: "#"
+  - year: "2025"
+    title: "A Multiphysics Model for Phase Change Actuation"
+    venue: "IFAC"
+    url: "#"
+
 hobbies:
   - title: "CanSat lead referee"
     text: "ESA/ESERO student competition, 2020–2026."

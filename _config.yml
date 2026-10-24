@@ -6,6 +6,19 @@ description: Mechanical engineer and researcher. CV, skills and selected project
 url: "https://alexiaisgoofingaround.github.io"
 baseurl: "/alexialegall"
 
+# Used by the header, the home page, the CV page and the contact block of each project.
+# Leave a line empty and its link disappears.
+author:
+  name: "Alexia Le Gall"
+  role: "Mechanical engineer & PhD candidate"
+  tagline: "From clinical need to working prototype."
+  email: "your.email@example.com"          # <- put your real address
+  linkedin: ""                              # <- full URL, e.g. https://www.linkedin.com/in/...
+  github: "https://github.com/alexiaisgoofingaround"
+  photo: "assets/img/profile.jpg"           # <- your portrait (landscape or square, ~1200 px)
+  photo_alt: "Portrait of Alexia Le Gall"
+  cv_pdf: "assets/files/cv.pdf"             # <- the maintained PDF CV
+
 collections:
   projects:
     output: true

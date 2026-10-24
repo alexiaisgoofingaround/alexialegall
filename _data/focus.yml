@@ -1,0 +1,18 @@
+# The four blocks under the hero on the home page.
+# icon: leaf | box | code | flask | activity     filter: a skill id from skills.yml (links to Projects filtered by it)
+- title: "Soft robotics"
+  text: "Design · Fabrication · Testing"
+  icon: "leaf"
+  filter: "fluidic"
+- title: "Mechanical design"
+  text: "CAD · FEA · DFM"
+  icon: "box"
+  filter: "mechanical"
+- title: "Programming"
+  text: "Python · MATLAB · Linux"
+  icon: "code"
+  filter: "python"
+- title: "Research & innovation"
+  text: "From clinical need to prototype"
+  icon: "flask"
+  filter: "medical"

@@ -1,0 +1,8 @@
+{%- comment -%} Project image, or a coloured block if the project has no `image:` yet. {%- endcomment -%}
+{%- assign _p = include.p -%}
+{%- if _p.image -%}
+  {%- capture _src %}{% include url.html u=_p.image %}{% endcapture -%}
+  <img src="{{ _src | strip }}" alt="{{ _p.image_alt | default: _p.title | escape }}"{% if include.lazy %} loading="lazy"{% endif %}>
+{%- else -%}
+  <span class="cover-ph" style="--c: {{ _p.color | default: '#4F6B57' }}" aria-hidden="true"></span>
+{%- endif -%}

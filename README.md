@@ -1,21 +1,26 @@
 # alexialegall: portfolio (Jekyll, runs on GitHub Pages)
 
 ```
-_config.yml            site title, baseurl, collections
-index.html             CV page (hero text is plain HTML here)
-projects/index.html    Projects page (mosaic + skill filter)
+_config.yml            site title, baseurl, author block (email, links, photo, PDF CV)
+index.html             Home: photo, description, contact, four focus blocks
+cv/index.html          CV: section menu (Experience, Education, Skills, ...) + PDF button
+projects/index.html    Projects: rounded rows with "+", skill filter
 _data/
-  skills.yml           skill list (sidebar + filter)
-  cv.yml               experience, education, hobbies, languages
+  skills.yml           skill list (CV skills + project filter)
+  cv.yml               experience, education, publications, hobbies, languages
+  focus.yml            the four blocks under the home description
 _projects/             ONE FILE PER PROJECT  → /projects/<file-name>/
-  phd.html, origami.html, ...
   _template.html       copy this to start a new one (ignored by the build)
-_layouts/              page skeletons (default, project)
-_includes/             figure, video, embed, chip, ...
+_layouts/              default (header/footer), project (picture, "+" story, documents, contact)
+_includes/             icon, figure, video, embed, chip, cover, ...
 assets/
-  css/style.css  js/site.js
-  img/  video/  files/   your images, videos, PDFs
+  css/style.css  js/site.js     (in this zip)
+  img/  video/  files/          YOUR folders, keep them as they are
 ```
+
+Files you need to add yourself: `assets/img/profile.jpg` (home portrait) and
+`assets/files/cv.pdf` (the Download CV button). Project cover: add `image: "assets/img/x.jpg"`
+to the project header, otherwise a coloured block is shown.
 
 ## Write a project page
 Each file in `_projects/` = a small header (between `---`) + **plain HTML**.
@@ -25,7 +30,8 @@ Each file in `_projects/` = a small header (between `---`) + **plain HTML**.
 title: "My project"
 when: "2025"
 order: 6
-color: "#2E5560"
+color: "#2E5560"            # cover colour until you add image:
+image: "assets/img/my-project.jpg"
 skills: ["python", "3dprinting"]
 description: "Shown under the title."
 resources:
@@ -42,6 +48,7 @@ resources:
 - Resources are added automatically at the bottom; sub-projects too (`subs:`).
 - If a formula ever contains `{{` or `{%`, wrap that paragraph in `{% raw %}...{% endraw %}`.
 - Link a CV entry to a project: `projects: ["phd"]` in `_data/cv.yml` (file name without `.html`).
+- The page shows: cover picture + description, then a "+" for the full story (everything below the header), then documents and contact.
 - A skill = one line in `_data/skills.yml`; use its `id` in `skills:`.
 
 ## baseurl

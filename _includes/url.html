@@ -1,0 +1,4 @@
+{%- comment -%} Outputs include.u as-is if absolute (://, mailto:, #), else relative to the site. {%- endcomment -%}
+{%- assign _url = include.u | default: '#' -%}
+{%- assign _url_first = _url | slice: 0 -%}
+{%- if _url contains '://' or _url contains 'mailto:' or _url_first == '#' -%}{{ _url }}{%- else -%}{{ _url | relative_url }}{%- endif -%}

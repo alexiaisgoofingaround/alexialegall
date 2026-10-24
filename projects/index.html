@@ -1,33 +1,38 @@
 ---
 layout: default
 title: Projects
+description: Selected projects in soft robotics, mechanical design and experimental research.
 ---
-<main class="projects-page">
-  <header class="page-intro">
-    <p class="eyebrow">Selected work</p>
+<main class="wrap projects-page">
+  <header class="page-head page-head-stack">
     <h1>Projects</h1>
-    <p>Browse projects by topic, or filter by a skill to see where it has been applied.</p>
+    <p class="page-sub">Selected projects in soft robotics, mechanical design and experimental research. Open one for the full story.</p>
   </header>
-<div class="filter" id="filter" role="group" aria-label="Filter by skill">
-  <button data-f="all" aria-pressed="true">All</button>
-  {% for g in site.data.skills %}{% for s in g.items %}
-    {% assign n = 0 %}
-    {% for p in site.projects %}{% if p.skills contains s.id %}{% assign n = n | plus: 1 %}{% endif %}{% endfor %}
-    {% if n > 0 %}<button data-f="{{ s.id }}" aria-pressed="false">{{ s.label }}</button>{% endif %}
-  {% endfor %}{% endfor %}
-</div>
 
-<div class="mosaic" id="mosaic">
-  {% assign list = site.projects | sort: "order" %}
-  {% for p in list %}
-  <a class="tile{% if p.featured %} big{% endif %}" href="{{ p.url | relative_url }}" data-skills="{{ p.skills | join: ' ' }}">
-    <div class="tile-content">
-      <h3>{{ p.title }}</h3>
-      <p class="tile-description">{{ p.description }}</p>
-      <div class="tile-meta"><span>{{ p.when }}</span><span class="tile-skills">{% for s in p.skills limit: 3 %}{% capture lab %}{% include skill-label.html id=s %}{% endcapture %}<span>{{ lab | strip }}</span>{% endfor %}</span></div>
-    </div>
-  </a>
-  {% endfor %}
-</div>
-<p class="empty" id="empty" hidden>No project uses this skill yet.</p>
+  <div class="filter" id="filter" role="group" aria-label="Filter by skill">
+    <button type="button" data-f="all" aria-pressed="true">All</button>
+    {% for g in site.data.skills %}{% for s in g.items %}
+      {% assign n = 0 %}
+      {% for p in site.projects %}{% if p.skills contains s.id %}{% assign n = n | plus: 1 %}{% endif %}{% endfor %}
+      {% if n > 0 %}<button type="button" data-f="{{ s.id }}" aria-pressed="false">{{ s.label }}</button>{% endif %}
+    {% endfor %}{% endfor %}
+  </div>
+
+  <ul class="plist">
+    {% assign list = site.projects | sort: "order" %}
+    {% for p in list %}
+    <li class="pcard" data-skills="{{ p.skills | join: ' ' }}">
+      <a href="{{ p.url | relative_url }}">
+        <span class="pcard-img">{% include cover.html p=p lazy=true %}</span>
+        <span class="pcard-body">
+          <span class="pcard-title">{{ p.title }}</span>
+          <span class="tags">{{ p.when }}{% for s in p.skills limit: 3 %}{% capture lab %}{% include skill-label.html id=s %}{% endcapture %} · {{ lab | strip }}{% endfor %}</span>
+          {% if p.description %}<span class="pcard-desc">{{ p.description }}</span>{% endif %}
+        </span>
+        <span class="round-btn" aria-hidden="true">{% include icon.html name="plus" %}</span>
+      </a>
+    </li>
+    {% endfor %}
+  </ul>
+  <p class="empty" id="empty" hidden>No project uses this skill yet.</p>
 </main>

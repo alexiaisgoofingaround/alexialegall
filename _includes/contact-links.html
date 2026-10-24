@@ -1,0 +1,6 @@
+{%- assign _a = site.author -%}
+<ul class="contact-links">
+  {% if _a.email %}<li><a href="mailto:{{ _a.email }}">{% include icon.html name="mail" %}<span>{% if include.short %}Email{% else %}{{ _a.email }}{% endif %}</span></a></li>{% endif %}
+  {% if _a.linkedin %}<li><a href="{{ _a.linkedin }}" rel="me noopener">{% include icon.html name="linkedin" %}<span>LinkedIn</span></a></li>{% endif %}
+  {% if _a.github %}<li><a href="{{ _a.github }}" rel="me noopener">{% include icon.html name="github" %}<span>GitHub</span></a></li>{% endif %}
+</ul>

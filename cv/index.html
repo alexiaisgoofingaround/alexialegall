@@ -1,0 +1,80 @@
+---
+layout: default
+title: CV
+description: Experience, education, skills and publications.
+---
+{%- capture cv_pdf %}{% include url.html u=site.author.cv_pdf %}{% endcapture -%}
+<main class="wrap cv-page">
+  <header class="page-head">
+    <div>
+      <p class="kicker">{{ site.author.name }}</p>
+      <h1>Curriculum vitae</h1>
+    </div>
+    <p class="page-sub">Experience, education, skills and publications. Pick a section, or download the full CV as a PDF.</p>
+  </header>
+
+  <div class="cv-layout">
+    <aside class="cv-side">
+      <nav class="cv-nav" aria-label="CV sections">
+        <a href="#experience">Experience</a>
+        <a href="#education">Education</a>
+        <a href="#skills">Skills</a>
+        <a href="#publications">Publications</a>
+        <a href="#engagement">Engagement</a>
+      </nav>
+      <a class="btn btn-outline" href="{{ cv_pdf | strip }}" download>{% include icon.html name="download" %}Download PDF CV</a>
+    </aside>
+
+    <div class="cv-panels">
+      <section class="cv-panel" id="experience" aria-labelledby="h-exp">
+        <h2 id="h-exp">Professional experience</h2>
+        {% include cv-entries.html list=site.data.cv.experience %}
+      </section>
+
+      <section class="cv-panel" id="education" aria-labelledby="h-edu">
+        <h2 id="h-edu">Education</h2>
+        {% include cv-entries.html list=site.data.cv.education %}
+      </section>
+
+      <section class="cv-panel" id="skills" aria-labelledby="h-skills">
+        <h2 id="h-skills">Skills</h2>
+        <p class="panel-hint">The number is how many projects use the skill. Select one to see them.</p>
+        <div class="skill-groups">
+          {% for g in site.data.skills %}
+          <div class="skillgroup">
+            <h3>{{ g.group }}</h3>
+            <div class="chips">
+              {% for s in g.items %}
+                {% assign n = 0 %}
+                {% for p in site.projects %}{% if p.skills contains s.id %}{% assign n = n | plus: 1 %}{% endif %}{% endfor %}
+                <a class="chip" href="{{ '/projects/' | relative_url }}#{{ s.id }}" data-skill="{{ s.id }}">{{ s.label }}<span class="n">{{ n }}</span></a>
+              {% endfor %}
+            </div>
+          </div>
+          {% endfor %}
+          <div class="skillgroup">
+            <h3>Languages</h3>
+            <ul class="langs">{% for l in site.data.cv.languages %}<li><b>{{ l.lang }}</b><span>{{ l.level }}</span></li>{% endfor %}</ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="cv-panel" id="publications" aria-labelledby="h-pub">
+        <h2 id="h-pub">Publications</h2>
+        <ol class="pubs">
+          {% for p in site.data.cv.publications %}
+          {%- capture href %}{% include url.html u=p.url %}{% endcapture -%}
+          <li><span class="when">{{ p.year }}</span><a href="{{ href | strip }}">{{ p.title }}</a><span class="org">{{ p.venue }}</span></li>
+          {% endfor %}
+        </ol>
+      </section>
+
+      <section class="cv-panel" id="engagement" aria-labelledby="h-eng">
+        <h2 id="h-eng">Engagement and hobbies</h2>
+        <ul class="hobbies">
+          {% for h in site.data.cv.hobbies %}<li><b>{{ h.title }}</b><span>{{ h.text }}</span></li>{% endfor %}
+        </ul>
+      </section>
+    </div>
+  </div>
+</main>
