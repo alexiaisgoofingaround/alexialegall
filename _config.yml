@@ -12,11 +12,11 @@ author:
   name: "Alexia Le Gall"
   role: "Mechanical engineer & PhD candidate"
   tagline: "From clinical need to working prototype."
-  email: "your.email@example.com"          # <- put your real address
-  linkedin: ""                              # <- full URL, e.g. https://www.linkedin.com/in/...
+  email: "alexia.le.gall@numericable.fr"          # <- put your real address
+  linkedin: "https://www.linkedin.com/in/alexia-le-gall-831378164/"                              # <- full URL, e.g. https://www.linkedin.com/in/...
   github: "https://github.com/alexiaisgoofingaround"
   photo: "assets/img/profile.jpeg"           # <- your portrait (landscape or square, ~1200 px)
-  photo_alt: "Portrait of Alexia Le Gall"
+  photo_alt: "Just a picture of me."        # <- alt text for your portrait
   cv_pdf: "assets/files/cv.pdf"             # <- the maintained PDF CV
 
 collections:
