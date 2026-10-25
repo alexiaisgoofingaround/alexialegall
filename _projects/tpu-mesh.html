@@ -4,53 +4,87 @@ when: "Aug. 2026"
 order: 5
 color: "#2E5560"
 skills: ["3dprinting", "python"]
-description: "A small PyQt configurator that generates disc-like kirigami meshes from a handful of parameters, previews them layer by layer, and exports a printable STL."
+description: "A small configurator that generates disc-like kirigami meshes from a handful of parameters and exports a printable STL."
 resources:
   - {label: "Kirigami disc configurator (Python)", url: "assets/files/kirigami_configurator.py", kind: "code"}
 ---
 
-<p>Most of my thesis work was on origami, but kirigami is nonetheless interesting. This project was a short exploration into generalising the design of TPU mesh structures, the kind you often find on sharing platforms like Thingiverse. Instead of drawing each one by hand, I wrote a small PyQt configurator that generates disc-like kirigami meshes from a handful of parameters (concentric dashed rings, a hub, a flange, an optional opening and pull handles), previews them layer by layer, and exports a printable STL.</p>
+<p>Most of my thesis work was on origami, but kirigami is nonetheless interesting. This project was a short exploration 
+into generalising the design of TPU mesh structures, the kind you often find on sharing platforms like Thingiverse. 
+Instead of drawing each one by hand, I wrote a small PyQt configurator that generates disc-like kirigami meshes from
+ a handful of parameters (concentric dashed rings, a hub, a flange, an optional opening and pull handles), previews them 
+layer by layer, and exports a printable STL.</p>
 
 <h2>Results</h2>
 
-<p>A mesh is a stack of concentric rings around a hub, closed by a flange. The base contour is a circle, a slot or a rounded rectangle. Every ring is a scaled copy of it: $C_i(t) = r_i\,C(t)$, $r_i = i\,w$, with $w$ the ring width and $t\in[0,1)$ the perimeter parameter. Dashed and solid rings alternate in a user-defined pattern ($n_{dash}$ dashed, then $n_{solid}$ solid). For the slot and rounded rectangle the rings are homothetic, not offset curves, so the radial ring width is not uniform.</p>
+{% include figure.html src="assets/img/meshResults.jpg" alt="Printed meshes" caption="Printed meshes. Top: deformed version. Left: prints with errors. Right: other shapes and dimensions." %}
 
-{% include figure.html src="assets/img/kirigamiexample.png" alt="Kirigami disc configurator, 2D preview" caption="Anatomy of a generated disc in the configurator: hub, dashed rings, solid ring, flange, opening (red) and handles (green)." %}
+<p>The first step in the generation was going from a structure to a set of parameters. The structure is mostly 2D,
+  and 2.5D once the different thicknesses of its parts are taken into account. It is described in polar terms: a
+  radial position (which ring) and a position along the contour (an angle on the circle). The hub is a filled
+  contour at the centre, the mesh is a stack of dashed and solid rings around it, and the flange is a thickened
+  outer ring that keeps the same dash pattern. The handles are arcs between two anchors on the flange, and the
+  opening is a sector that removes a portion of the mesh.
+</p>
+  {% include figure.html src="assets/img/schematicHub.png" alt="Anatomy of the generated structure" caption="Anatomy of a generated disc in the configurator: hub, segments, solid ring, flange, opening (red) and handles (green)." %}
 
-<p>Each dashed ring is cut into $N$ dashes. With $d_i$ the solid fraction (duty) of ring $i$, dash $k$ spans $t\in\left[\varphi_i + \tfrac{k}{N} + \tfrac{1-d_i}{2N},\; \varphi_i + \tfrac{k}{N} + \tfrac{1+d_i}{2N}\right]$. The phase $\varphi_i = \tfrac{1}{2N}\left(\lfloor i/2 \rfloor \bmod 2\right)$ shifts every second pair of rings by half a period, so slits are staggered like bricks. That stagger is what makes it kirigami: the ligaments between slits bend and the disc opens out of plane.</p>
+</p>
+<p>
+  The first step in the generation was going from a structure to a set of parameters. The structure is mostly 2D,
+  and 2.5D once the different thicknesses of its parts are taken into account. Everything is set up on an angular
+  logic: the hub is a filled contour, the mesh is a stack of dashed and solid rings, the flange is a thickened
+  outer ring with the same dash pattern, and the handles are arcs between two anchors on the flange. The opening
+  is an angular sector that removes a portion of the rings and the flange.
+</p>
 
-<p>Duty varies linearly from the inner to the outer dashed ring: $d_i = d_{in} + (d_{out}-d_{in})\,\dfrac{i-n_h}{n_b-n_h-1}$, with $n_h$ hub rings and $n_b$ body rings. On a circle, dash and gap lengths are $s_i = 2\pi r_i d_i / N$ and $g_i = 2\pi r_i (1-d_i)/N$. Linear $d_i$ does not keep $s_i$ constant. $d_i \propto 1/r_i$ would; it is the natural next step.</p>
+{% include figure.html src="assets/img/schematicHub.png" alt="Anatomy of the generated structure" caption="Anatomy of a generated structure in the configurator: hub, dashed rings, solid ring, flange, opening (red) and handles (green)." %}
 
-<p>The part is a two-level height field. Hub, thick flange sectors and handles are extruded to $h_{struct}$; rings to $h_{ring}$, thinner so they flex. The slice view cuts this field at a height $z$, so you can check what a given print layer contains.</p>
+<h3>Mesh generation</h3>
 
-<p>The flange follows the same dash pattern: thick ($h_{struct}$) on a dash, thinned ($h_{ring}$) in the gaps, set by a flange duty $d_f$. At $d_f = 1$ it is one continuous thick ring. Handles are anchored on it, so $d_f$ decides whether a handle sits on a continuous ring or on isolated thick segments.</p>
+<p>
+  To create the mesh, we first define a base contour <i>c</i>. It is piecewise: straight segments and circular arcs
+  (a circle, a slot, or a rounded rectangle), parametrised by the arclength fraction <i>t</i> &isin; [0, 1). Equal
+  steps in <i>t</i> correspond to equal lengths along the contour, on straights and arcs alike.
+</p>
 
-{% include figure.html caption="Handle integration into the flange, slice at z = 1.0 mm (between h_ring and h_struct, structural material only). Left: flange duty 1.0 (continuous ring). Right: flange duty 0.6 (segmented). TODO: two screenshots with identical other parameters; check whether anchors land on thick segments or on gaps." color="#2E5560" %}
+<p>
+  The concentric rings are indexed by their position <i>i</i> = 0 &hellip; <i>N</i>&minus;1, with <i>N</i> the number
+  of rings. Ring <i>i</i> lies between the contour scaled by <i>i</i>&middot;<i>w</i> and the contour scaled by
+  (<i>i</i>+1)&middot;<i>w</i>, with <i>w</i> the ring width. The hub is the filled contour out to the first rings, and
+  the flange is the last ring. Since the rings are scaled copies of the contour, and not offset curves, their
+  thickness is uniform only for the circle. On the slot and the rounded rectangle it increases at the round ends and at
+  the corners.
+</p>
 
-<p>TODO: state the finding (where handle anchors land relative to the thick segments, effect on load transfer and printability), ideally backed by a pull test.</p>
+<p>
+  Dashed rings are cut into <i>n</i> segments, each made of a dash and a gap. The duty <i>&delta;</i> is the fraction of
+  each segment that is kept, and it varies linearly from the inner to the outer rings. Consecutive dashed rings are
+  offset by half a segment, which places the cuts in quincunx. These staggered cuts are what allow the mesh to deform.
+</p>
 
-<p>A handle is a quadratic Bézier arc between two anchors $A$ and $B$ on the flange, a chosen span apart. Control point: $Q = M + \tfrac{h(1+\kappa)}{2}\,\hat n$, with $M$ the chord midpoint, $\hat n$ the outward normal, $h$ the height parameter and $\kappa$ the curvature. Curve: $\mathbf{B}(\tau) = (1-\tau)^2 A + 2\tau(1-\tau)\,Q + \tau^2 B$. The arc is thickened by $\pm w_h/2$ and extruded to $h_{struct}$. Its apex sits at $\tfrac{h(1+\kappa)}{4}$ from the chord, so the loop reaches height $h$ only for $\kappa = 3$.</p>
+  {% include figure.html src="assets/img/twoconfig.png" alt="Example of two configurations" caption="Two configurations: one disc, one slot with handles and opening." %}
 
-<p>An optional opening removes an angular sector $\theta$, centred at a chosen angle, over a chosen range of rings. Dashes are clipped against the sector and solid rings are split, leaving a gap through the mesh.</p>
+<h3>Different thicknesses</h3>
 
-{% include figure.html src="assets/img/meshResults.jpg" alt="Printed TPU kirigami meshes" caption="Printed TPU meshes. Left: generation errors. Right: different hub shapes and sizes. Top: an unfolded mesh." %}
+<p>
+  The mesh is kept as thin as possible so that it deforms. The hub and the flange are thicker to give it structure. In
+  the first prototypes the flange had full thickness, which prevented it from folding. The flange now keeps the dash
+  pattern: it is thick on the dashes and thinned in the gaps, so it stays structural but can fold.
+</p>
 
-<h2>Code</h2>
+<h3>Opening</h3>
 
-<pre><code>def dash_intervals(n_seg, duty, phase):
-    seg = 1/n_seg; sol = seg*duty; gap = seg*(1-duty)
-    return [(phase + k*seg + gap/2, phase + k*seg + gap/2 + sol)
-            for k in range(n_seg)]
+<p>
+  The opening is defined by an angle, a position and a range of rings. Every arc of the selected rings and of the
+  flange that falls inside the sector is removed.
 
-def flange_sectors(n_seg, duty, phase):
-    # thick on the dashes, thinned in the gaps; duty&gt;=1 -&gt; one thick ring
-    if duty &gt;= 0.999: return [(0.0, 1.0, True)]
-    iv = dash_intervals(n_seg, duty, phase)
-    gaps = [(iv[k][1], iv[k+1][0] if k+1 &lt; n_seg else iv[0][0]+1.0, False)
-            for k in range(n_seg)]
-    return [(a, b, True) for a, b in iv] + gaps
+</p>
 
-# handle: quadratic Bezier between two flange anchors
-out = hdl_height*(0.5 + 0.5*hdl_curv)
-cp  = midpoint + normal*out
-pt  = u*u*A + 2*u*t*cp + t*t*B      # u = 1 - t</code></pre>
+<h3>Design and implementation</h3>
+
+<p>
+  The generative logic was defined by the author from hand-made prototypes: a contour scaled into
+  concentric rings, dashed rings cut in quincunx, a flange that follows the dash pattern. It was then
+  implemented as a parametric configurator (Python, PyQt5, trimesh) with Claude (Anthropic) and tested
+  against printed meshes.
+</p>

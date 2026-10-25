@@ -30,7 +30,7 @@ experience:
       - "Bistable valves using PolyJet multi-material properties."
       - "Toolbox from Boolean logic to 3D-printable geometry."
     skills: ["fluidic", "prototyping", "cad"]
-    projects: ["valves"]   # project file names (without .html)
+    projects: []   # project file names (without .html)
   - when: "2022"
     title: "Research engineer intern"
     org: "GIPSA-lab, Grenoble"
@@ -83,7 +83,7 @@ publications:
   - year: "2026"
     title: "Crease-Encoded Soft Origami Chambers"
     venue: "Advanced Intelligent Systems"
-    url: "#"
+    url: "https://advanced.onlinelibrary.wiley.com/doi/full/10.1002/aisy.70543"
   - year: "2025"
     title: "A Multiphysics Model for Phase Change Actuation"
     venue: "IFAC"
