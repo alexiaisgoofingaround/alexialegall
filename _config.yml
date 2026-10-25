@@ -15,7 +15,7 @@ author:
   email: "your.email@example.com"          # <- put your real address
   linkedin: ""                              # <- full URL, e.g. https://www.linkedin.com/in/...
   github: "https://github.com/alexiaisgoofingaround"
-  photo: "assets/img/profile.jpg"           # <- your portrait (landscape or square, ~1200 px)
+  photo: "assets/img/profile.jpeg"           # <- your portrait (landscape or square, ~1200 px)
   photo_alt: "Portrait of Alexia Le Gall"
   cv_pdf: "assets/files/cv.pdf"             # <- the maintained PDF CV
 
