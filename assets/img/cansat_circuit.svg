@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg class="cs" width="1000" height="490" viewBox="0 0 1000 490" role="img" aria-label="CanSat flight electronics schematic: 9 V battery with power LED, main switch, 5 V buck converter, ESP32, BMP280 and MPU6050 IMU on I2C, micro SD module on SPI, RGB state LED, WiFi enable switch." xmlns="http://www.w3.org/2000/svg" xmlns:c2pa="http://c2pa.org/manifest"><metadata><c2pa:manifest>AAAWgmp1bWIAAAAeanVtZGMycGEAEQAQgAAAqgA4m3EDYzJwYQAAABZcanVtYgAAAEdqdW1kYzJtYQARABCAAACqADibcQN1cm46YzJwYTozNjYwNmRiMi1kOWU3LTQ3N2QtYWIxNS1kMTQ3ZDA5Yzk1ZTcAAAADl2p1bWIAAAApanVtZGMyYXMAEQAQgAAAqgA4m3EDYzJwYS5hc3NlcnRpb25zAAAAALxqdW1iAAAARGp1bWRjYm9yABEAEIAAAKoAOJtxE2MycGEuaW5ncmVkaWVudC52MwAAAAAYYzJzaIT67iQS/bFMIVztXzlrar4AAABwY2JvcqNpZGM6Zm9ybWF0bWltYWdlL3N2Zyt4bWxqaW5zdGFuY2VJRHgseG1wOmlpZDoyMzFiOGIwYy0zY2U0LTRmNjctYjZhOC02ODdmMjJkNzg1MjVscmVsYXRpb25zaGlwaHBhcmVudE9mAAAB4mp1bWIAAABBanVtZGNib3IAEQAQgAAAqgA4m3ETYzJwYS5hY3Rpb25zLnYyAAAAABhjMnNon4yZhQ7UzC87/yFZG58nEAAAAZljYm9yomdhY3Rpb25zgqJmYWN0aW9ua2MycGEub3BlbmVkanBhcmFtZXRlcnOha2luZ3JlZGllbnRzgaJjdXJseC1zZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmluZ3JlZGllbnQudjNkaGFzaFggAabGVUfhjn+cwyF4aNUV7pErFpzxpXNvdIZGWbQO7DykZmFjdGlvbngdY29tLmFudGhyb3BpYy5jbGF1ZGUucHJvdmlkZWRqcGFyYW1ldGVyc6F4H2NvbS5hbnRocm9waWMub3JpZ2luLWNvbmZpZGVuY2VndW5rbm93bmtkZXNjcmlwdGlvbnhmQ2xhdWRlIHByb3ZpZGVkIHRoaXMgZmlsZSBhdCB0aGUgcmVxdWVzdCBvZiBhIHVzZXIgYW5kIG1heSBoYXZlIGNyZWF0ZWQgb3IgbW9kaWZpZWQgdGhlIGZpbGUgY29udGVudHMubXNvZnR3YXJlQWdlbnShZG5hbWVmQ2xhdWRlcmFsbEFjdGlvbnNJbmNsdWRlZPUAAADIanVtYgAAAEBqdW1kY2JvcgARABCAAACqADibcRNjMnBhLmhhc2guZGF0YQAAAAAYYzJzaGZSJ45T+6JxsoWado1XwcAAAACAY2JvcqVjYWxnZnNoYTI1NmNwYWRMAAAAAAAAAAAAAAAAZGhhc2hYIFWrySXg9D8IxFcYfFoqe37uDI8c8B0IU5cgq63w6wn4ZG5hbWVuanVtYmYgbWFuaWZlc3RqZXhjbHVzaW9uc4GiZXN0YXJ0GQGlZmxlbmd0aBkeBAAAAj5qdW1iAAAAJ2p1bWRjMmNsABEAEIAAAKoAOJtxA2MycGEuY2xhaW0udjIAAAACD2Nib3KlY2FsZ2ZzaGEyNTZpc2lnbmF0dXJleE1zZWxmI2p1bWJmPS9jMnBhL3VybjpjMnBhOjM2NjA2ZGIyLWQ5ZTctNDc3ZC1hYjE1LWQxNDdkMDljOTVlNy9jMnBhLnNpZ25hdHVyZWppbnN0YW5jZUlEeCx4bXA6aWlkOjNjZDExYWIyLWY4YjQtNDJjZS04NGEwLWVjMGFmMzVlNTk0MnJjcmVhdGVkX2Fzc2VydGlvbnODomN1cmx4LXNlbGYjanVtYmY9YzJwYS5hc3NlcnRpb25zL2MycGEuaW5ncmVkaWVudC52M2RoYXNoWCABpsZVR+GOf5zDIXho1RXukSsWnPGlc290hkZZtA7sPKJjdXJseCpzZWxmI2p1bWJmPWMycGEuYXNzZXJ0aW9ucy9jMnBhLmFjdGlvbnMudjJkaGFzaFggsdY0mv+KFx45Mn8QbLtiEGGT8GafZPk49cgO48ODjByiY3VybHgpc2VsZiNqdW1iZj1jMnBhLmFzc2VydGlvbnMvYzJwYS5oYXNoLmRhdGFkaGFzaFggNkh9MG347YR5Aiw29FrtAVZ6IkoloXTkQm1whDsYtNx0Y2xhaW1fZ2VuZXJhdG9yX2luZm+jZG5hbWVvQW50aHJvcGljIEZpbGVzZ3ZlcnNpb25lMS4wLjBrc3BlY1ZlcnNpb25lMi40LjAAABA4anVtYgAAAChqdW1kYzJjcwARABCAAACqADibcQNjMnBhLnNpZ25hdHVyZQAAABAIY2JvctKEWQISogEmGCFZAgowggIGMIIBjaADAgECAhRA5aAK7sI50L64g/oGQgU9Z1UTADAKBggqhkjOPQQDAzBJMRcwFQYDVQQKEw5BbnRocm9waWMsIFBCQzEuMCwGA1UEAxMlQW50aHJvcGljIENvbnRlbnQgQ3JlZGVudGlhbHMgUm9vdCBDQTAeFw0yNjA4MDcxODQzNTZaFw0yODA4MDYxOTQzNTZaMEQxFzAVBgNVBAoTDkFudGhyb3BpYywgUEJDMSkwJwYDVQQDEyBBbnRocm9waWMgQ2xhdWRlIENvbnRlbnQgU2lnbmluZzBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IABJh6CmvLUBgFFNU0vUKlOVtE6djd17L5SuwX0LemFisBM3dkd/3cyjxFA3Qo5S46fX0/ihY0VZ7mfb9KF703t5OjWDBWMA4GA1UdDwEB/wQEAwIHgDAVBgNVHSUEDjAMBgorBgEEAYPoXgIBMAwGA1UdEwEB/wQCMAAwHwYDVR0jBBgwFoAUzlHiBIFOZFsj+OPEz5o+nMHXXMIwCgYIKoZIzj0EAwMDZwAwZAIwMXMdFJ4BetLLVY7ORuE9noqbbAZOZn/aArXyTwFAZfKrPzxF2vPoJNf1+UCdg1XGAjBwX1zd9WGqYkqmL5SFqw1QySjr1zJfpJM9+1rdDwSPLMOPOjKuiXjoU/pUUeG9RwmhY3BhZFkNngAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAPZYQKUxrSl6rb1XQ8a/euZa/KF9wNGQp7rsy5LXxdewAPMXoWZtkSxx1X3pocCmM5xcDltkHQJ5jKR8tNwm84IxmIQ=</c2pa:manifest></metadata><style>svg.cs{--ink:#17202a;--paper:#ffffff;--box:#f1f4f8;--accent:#1f5fa8;--muted:#4a5663}
+@media (prefers-color-scheme:dark){svg.cs{--ink:#e6eaef;--paper:#12161b;--box:#1b222a;--accent:#6fb0ff;--muted:#aab4c0}}
+.cs .w{fill:none;stroke:var(--ink);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.cs .box{fill:var(--box);stroke:var(--ink);stroke-width:1.6;stroke-linejoin:round}
+.cs .hi{stroke:var(--accent);stroke-width:2.4}
+.cs .dash{fill:none;stroke-dasharray:5 4}
+.cs .pin{fill:var(--paper);stroke:var(--ink);stroke-width:1.6}
+.cs .dot{fill:var(--ink)}
+.cs text{font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;fill:var(--ink)}
+.cs .b{font-size:15px;font-weight:600}
+.cs .s{font-size:12.5px;fill:var(--muted)}
+.cs .p{font-size:11.5px}</style><title>CanSat flight electronics schematic: 9 V battery with power LED, main switch, 5 V buck converter, ESP32, BMP280 and MPU6050 IMU on I2C, micro SD module on SPI, RGB state LED, WiFi enable switch.</title>
+<rect class="box" x="30" y="95" width="60" height="100" rx="4"/>
+<text class="b" x="60" y="142" text-anchor="middle">9 V</text>
+<text class="s" x="60" y="160" text-anchor="middle">alkaline</text>
+<text class="b" x="97" y="124" text-anchor="start">+</text>
+<text class="b" x="40" y="189" text-anchor="start">−</text>
+<path class="w" d="M90 130H127"/>
+<circle class="pin" cx="130" cy="130" r="3"/><circle class="pin" cx="170" cy="130" r="3"/><path class="w" d="M132 128L166 115"/>
+<path class="w" d="M173 130H200"/>
+<circle class="dot" cx="182" cy="130" r="3"/>
+<path class="w" d="M60 195V225"/>
+<path class="w" d="M60 225v8M51 233h18M54 237h12M57 241h6"/>
+<text class="s" x="150" y="80" text-anchor="middle">SW1 main ON/OFF</text>
+<text class="s" x="150" y="94" text-anchor="middle">external (CDC004)</text>
+<path class="w" d="M182 130V152"/><rect class="box" x="174" y="152" width="16" height="34" rx="2"/>
+<text class="s" x="168" y="172" text-anchor="end">R2 2.2 kΩ</text>
+<path class="w" d="M182 186V194"/><path class="box" d="M172 194H192L182 214Z"/><path class="w" d="M172 214H192M182 214V224"/>
+<path class="w" d="M182 224v8M173 232h18M176 236h12M179 240h6"/>
+<text class="s" x="168" y="208" text-anchor="end">power LED</text>
+<rect class="box" x="200" y="115" width="100" height="75" rx="4"/>
+<text class="b" x="250" y="148" text-anchor="middle">Buck</text>
+<text class="s" x="250" y="166" text-anchor="middle">5.0 V</text>
+<text class="p" x="206" y="124" text-anchor="start">IN+</text>
+<text class="p" x="294" y="124" text-anchor="end">OUT+</text>
+<path class="w" d="M215 190V210"/>
+<path class="w" d="M215 210v8M206 218h18M209 222h12M212 226h6"/>
+<path class="w" d="M300 130H360"/>
+<text class="s" x="250" y="106" text-anchor="middle">flight only</text>
+<circle class="dot" cx="335" cy="130" r="3"/>
+<path class="w" d="M335 130v-12M328 118h14"/><text class="p" x="335" y="113" text-anchor="middle">5V</text>
+<rect class="box hi" x="360" y="90" width="150" height="330" rx="6"/>
+<text class="b" x="435" y="172" text-anchor="middle">ESP32</text>
+<text class="s" x="435" y="190" text-anchor="middle">Dev Module</text>
+<text class="s" x="435" y="208" text-anchor="middle">flash + WiFi AP</text>
+<text class="p" x="368" y="134" text-anchor="start">VIN</text>
+<text class="p" x="368" y="254" text-anchor="start">GPIO27</text>
+<text class="p" x="368" y="304" text-anchor="start">GPIO25</text>
+<text class="p" x="368" y="324" text-anchor="start">GPIO26</text>
+<text class="p" x="368" y="344" text-anchor="start">GPIO33</text>
+<text class="p" x="368" y="384" text-anchor="start">GND</text>
+<text class="p" x="502" y="124" text-anchor="end">3V3</text>
+<text class="p" x="502" y="264" text-anchor="end">GPIO21 SDA</text>
+<text class="p" x="502" y="289" text-anchor="end">GPIO22 SCL</text>
+<text class="p" x="502" y="334" text-anchor="end">GPIO18 SCK</text>
+<text class="p" x="502" y="354" text-anchor="end">GPIO19 MISO</text>
+<text class="p" x="502" y="374" text-anchor="end">GPIO23 MOSI</text>
+<text class="p" x="502" y="394" text-anchor="end">GPIO5 CS</text>
+<path class="w" d="M360 380H330"/>
+<path class="w" d="M330 380v8M321 388h18M324 392h12M327 396h6"/>
+<path class="w" d="M435 420V440"/>
+<rect class="box dash" x="365" y="440" width="140" height="28" rx="4"/>
+<text class="s" x="435" y="458" text-anchor="middle">USB-C (bench only)</text>
+<path class="w" d="M360 250H310"/>
+<circle class="pin" cx="270" cy="250" r="3"/><circle class="pin" cx="310" cy="250" r="3"/><path class="w" d="M272 248L306 235"/>
+<path class="w" d="M267 250H240"/>
+<path class="w" d="M240 250v8M231 258h18M234 262h12M237 266h6"/>
+<text class="s" x="290" y="208" text-anchor="middle">SW2 WiFi enable</text>
+<text class="s" x="290" y="222" text-anchor="middle">external (CDC018)</text>
+<rect class="box" x="195" y="288" width="75" height="64" rx="4"/>
+<text class="b" x="224" y="316" text-anchor="middle">RGB</text>
+<text class="s" x="224" y="332" text-anchor="middle">LED</text>
+<path class="w" d="M360 300H326M286 300H270"/><rect class="box" x="286" y="294" width="40" height="12" rx="2"/>
+<text class="p" x="264" y="304" text-anchor="end">R</text>
+<path class="w" d="M360 320H326M286 320H270"/><rect class="box" x="286" y="314" width="40" height="12" rx="2"/>
+<text class="p" x="264" y="324" text-anchor="end">G</text>
+<path class="w" d="M360 340H326M286 340H270"/><rect class="box" x="286" y="334" width="40" height="12" rx="2"/>
+<text class="p" x="264" y="344" text-anchor="end">B</text>
+<text class="s" x="306" y="282" text-anchor="middle">3 × 330 Ω</text>
+<path class="w" d="M195 320H180"/>
+<path class="w" d="M180 320v8M171 328h18M174 332h12M177 336h6"/>
+<text class="s" x="232" y="370" text-anchor="middle">card state LED</text>
+<text class="s" x="232" y="384" text-anchor="middle">common cathode</text>
+<path class="w" d="M510 120H540V60H780V100"/>
+<path class="w" d="M620 60V100"/>
+<circle class="dot" cx="620" cy="60" r="3"/>
+<circle class="dot" cx="560" cy="60" r="3"/>
+<text class="p" x="548" y="52" text-anchor="start">3V3</text>
+<rect class="box" x="580" y="100" width="130" height="120" rx="4"/>
+<text class="b" x="650" y="140" text-anchor="middle">BMP280</text>
+<text class="s" x="650" y="158" text-anchor="middle">pressure, temp</text>
+<text class="s" x="650" y="174" text-anchor="middle">addr 0x76</text>
+<text class="p" x="620" y="116" text-anchor="middle">VCC</text>
+<text class="p" x="586" y="144" text-anchor="start">CSB</text>
+<text class="p" x="586" y="184" text-anchor="start">SDO</text>
+<text class="p" x="704" y="194" text-anchor="end">GND</text>
+<text class="p" x="596" y="214" text-anchor="middle">SDA</text>
+<text class="p" x="630" y="214" text-anchor="middle">SCL</text>
+<path class="w" d="M560 60V140H580"/>
+<path class="w" d="M580 180H560"/>
+<path class="w" d="M560 180v8M551 188h18M554 192h12M557 196h6"/>
+<rect class="box" x="740" y="100" width="130" height="120" rx="4"/>
+<text class="b" x="805" y="140" text-anchor="middle">MPU6050</text>
+<text class="s" x="805" y="158" text-anchor="middle">IMU, GY-521 0x68</text>
+<text class="s" x="805" y="174" text-anchor="middle">AD0 open</text>
+<text class="p" x="780" y="116" text-anchor="middle">VCC</text>
+<text class="p" x="746" y="194" text-anchor="start">GND</text>
+<text class="p" x="766" y="214" text-anchor="middle">SDA</text>
+<text class="p" x="800" y="214" text-anchor="middle">SCL</text>
+<path class="w" d="M710 190H725M740 190H725"/>
+<circle class="dot" cx="725" cy="190" r="3"/>
+<path class="w" d="M725 190v8M716 198h18M719 202h12M722 206h6"/>
+<path class="w" d="M510 260H766"/>
+<path class="w" d="M596 220V260M766 220V260"/>
+<circle class="dot" cx="596" cy="260" r="3"/>
+<circle class="dot" cx="766" cy="260" r="3"/>
+<path class="w" d="M510 285H800"/>
+<path class="w" d="M630 220V254a6 6 0 0 1 0 12V285M800 220V285"/>
+<circle class="dot" cx="630" cy="285" r="3"/>
+<circle class="dot" cx="800" cy="285" r="3"/>
+<text class="s" x="655" y="252" text-anchor="start">I2C SDA</text>
+<text class="s" x="655" y="302" text-anchor="start">I2C SCL</text>
+<rect class="box" x="560" y="320" width="130" height="120" rx="4"/>
+<path class="w" d="M510 330H560"/>
+<text class="p" x="566" y="334" text-anchor="start">SCK</text>
+<path class="w" d="M510 350H560"/>
+<text class="p" x="566" y="354" text-anchor="start">MISO</text>
+<path class="w" d="M510 370H560"/>
+<text class="p" x="566" y="374" text-anchor="start">MOSI</text>
+<path class="w" d="M510 390H560"/>
+<text class="p" x="566" y="394" text-anchor="start">CS</text>
+<text class="p" x="684" y="344" text-anchor="end">VCC</text>
+<text class="p" x="684" y="424" text-anchor="end">GND</text>
+<text class="b" x="612" y="414" text-anchor="middle">micro SD</text>
+<text class="s" x="612" y="430" text-anchor="middle">SPI, FAT32</text>
+<path class="w" d="M690 340H705"/>
+<path class="w" d="M705 340v-12M698 328h14"/><text class="p" x="705" y="323" text-anchor="middle">5V</text>
+<path class="w" d="M690 420H705"/>
+<path class="w" d="M705 420v8M696 428h18M699 432h12M702 436h6"/>
+<text class="s" x="740" y="352" text-anchor="start">Sensors: 3.3 V from the ESP32 3V3 pin,</text>
+<text class="s" x="740" y="370" text-anchor="start">never 5 V on a 3.3 V BMP280.</text>
+<text class="s" x="740" y="388" text-anchor="start">SD module runs on 5 V.</text>
+<text class="s" x="740" y="406" text-anchor="start">I2C pull-ups sit on the breakouts.</text>
+<text class="s" x="740" y="424" text-anchor="start">All ground symbols are one net,</text>
+<text class="s" x="740" y="442" text-anchor="start">and all 5V flags are one net.</text>
+</svg>

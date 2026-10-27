@@ -24,6 +24,8 @@
       label: "Test rigs"
     - id: "3dprinting"
       label: "3D printing"
+    - id: "electronics"
+      label: "Electronics & microcontrollers"
 - group: "Domain"
   items:
     - id: "fluidic"

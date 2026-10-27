@@ -1,0 +1,91 @@
+---
+title: "CanSat: a generic bi-shell template"
+when: "2026"
+order: 6                      # adjust: position on the Projects page
+color: "#2E5560"              # adjust: tile colour
+featured: false
+skills: ["mechanical", "cad", "dfm", "prototyping", "3dprinting", "electronics"]
+description: "A generic CanSat template built around an off-centre separator and two bolted shells, with an ESP32 logger and the electronics used in the 2026 organiser training."
+resources:
+  - {label: "LinkedIn post", url: "https://lnkd.in/p/dxWFp8iv", kind: "article"}
+  - {label: "Planète Sciences, CanSat", url: "https://www.planete-sciences.org/espace/cansat", kind: "article"}
+---
+
+<h2>Description</h2>
+<p>A generic CanSat template for the CanSat Lycéens competition (Planète Sciences, ESERO France, CNES), built for two consecutive organiser trainings. It worked both times.</p>
+
+{% include figure.html src="assets/img/cansat-open.jpg" alt="Second-version CanSat open: ESP32, micro SD module, IMU and pressure sensor on a prototyping board inside one shell" caption="Figure 1. The second-version CanSat, open: the electronics sit on a prototyping board inside one shell." %}
+
+<h2>Why a CanSat template</h2>
+<p>The first CanSat Lycéens training was there to make organisers, volunteers and teachers aware of the medium and the competition. I believe you haven't understood the difficulties until you are knee deep in them, so part of the training is building your own CanSat. I had to prepare the material.</p>
+
+<h2>First version</h2>
+<p>The first design was much simpler: two symmetric shells, and a support in between. It worked, but as a perfect example of my previous statement, it was perfectible. The support in the middle was limiting the effective space. The separation between the shells ran all through the body, which reduced the stiffness of the cap, where all the forces go once the parachute is attached. So came the second version.</p>
+
+{% include figure.html src="assets/video/first_formation.gif" alt="First-year CanSat sending data" caption="Figure 2. First-year CanSat sending data." %}
+
+<h2>Second version</h2>
+<p>We set out to create a very generic template for a CanSat. There are as many designs as CanSats, but from experience, seeing them every year, a few observations led to ours.</p>
+
+<p>First, the main challenge is the electronic integration. Unless the team can make a PCB, commercially available breakout boards take space, a lot of it. So you want a shape that gives them support to fix onto, but still leaves serious space. An eccentric vertical separator ended up being the best solution: the electronics are fixed on it, which leaves the full diameter for the circuit.</p>
+
+{% include figure.html src="assets/img/cansat-bench.jpg" alt="Printed second-version shells and electronics being wired on the bench" caption="Figure 3. Preparing the training material: printed shells and electronics being wired." %}
+
+<p>Second, not in order of importance, you need structural integrity, and you want it well separated from the electronics. In rockets, the question is whether the external envelope can take the structural load or not. It would be easy to 3D print screw caps and fix the parachute on one of them, but it is harder to make sure the thread resists the forces. Broadly speaking, it should, but access to the internal components is reduced. Instead we have a bi-shell approach: two almost identical shells, screwed together with nuts and bolts, four in total. That is enough for good resistance, and lets us consider the CanSat skin-bearing. The electronics are fixed inside, on the eccentric separator.</p>
+
+<p>A flat is cut on each side so the CanSat can be printed lying on the bed. It can reduce the printing time, at the price of a less perfect surface on each side.</p>
+
+<p>The battery is separate, in its own compartment, easily accessed from the outside. The door is held by simple printed clips with a wiggle-shaped spring. A single wiggle was too thin, two wiggles gave the rigidity. It is easier to open than a screwed cover. The solution works, but we doubt it will keep the battery in at 10 g without popping out. We are searching for a solution.</p>
+
+{% include figure.html src="assets/img/bishells.png" alt="Technical drawing of the bi-shell: section, side views, joint detail and nut pocket" caption="Figure 4. Bi-shell drawing: section, side views, and details of the joint and the nut pocket." %}
+{% include figure.html src="assets/img/battery-clips-tests.png" alt="Battery door: geometry tests and clip variants" caption="Figure 5. Battery door clip tests: a single wiggle was too thin, two wiggles gave the rigidity." %}
+{% include figure.html src="assets/video/clipsBattery.gif" alt="Clipping the battery door" caption="Figure 6. Clipping the battery door." %}
+{% include figure.html src="assets/video/second_formation.gif" alt="Second-year CanSat with fall detection" caption="Figure 7. Second-year CanSat with fall detection." %}
+
+<h2>Components and cost</h2>
+<table>
+  <caption>Per CanSat. Unit prices in euros (typical retail estimates, to be replaced by invoice values), masses in grams. TBD means it depends on the build.</caption>
+  <thead><tr><th>Component</th><th>Role</th><th>Qty</th><th>Unit €</th><th>Line €</th><th>Mass g</th></tr></thead>
+  <tbody>
+<tr><th scope="row">ESP32 dev board (ELEGOO ESP-32, USB-C)</th><td>Controller, WiFi access point</td><td class="n">1</td><td class="n">8.00</td><td class="n">8.00</td><td class="n">10</td></tr>
+<tr><th scope="row">BMP280 breakout, 3.3 V</th><td>Pressure and temperature (DEF002)</td><td class="n">1</td><td class="n">3.00</td><td class="n">3.00</td><td class="n">2</td></tr>
+<tr><th scope="row">MPU6050 breakout (GY-521)</th><td>IMU: acceleration and rotation, landing detection</td><td class="n">1</td><td class="n">3.50</td><td class="n">3.50</td><td class="n">2</td></tr>
+<tr><th scope="row">Micro SD module (SPI, 5 V)</th><td>Data storage interface</td><td class="n">1</td><td class="n">1.50</td><td class="n">1.50</td><td class="n">5</td></tr>
+<tr><th scope="row">Micro SD card, FAT32</th><td>CSV data log</td><td class="n">1</td><td class="n">5.00</td><td class="n">5.00</td><td class="n">1</td></tr>
+<tr><th scope="row">9 V alkaline battery + snap clip</th><td>Supply</td><td class="n">1</td><td class="n">3.50</td><td class="n">3.50</td><td class="n">50</td></tr>
+<tr><th scope="row">Buck converter, set to 5.0 V</th><td>Steps 9 V down to the ESP32 VIN pin</td><td class="n">1</td><td class="n">2.00</td><td class="n">2.00</td><td class="n">2</td></tr>
+<tr><th scope="row">Slide switch SW1</th><td>Main ON/OFF, reachable from outside</td><td class="n">1</td><td class="n">0.80</td><td class="n">0.80</td><td class="n">1</td></tr>
+<tr><th scope="row">Slide switch SW2</th><td>WiFi enable (telemetry switch)</td><td class="n">1</td><td class="n">0.80</td><td class="n">0.80</td><td class="n">1</td></tr>
+<tr><th scope="row">RGB LED + 3 × 330 Ω</th><td>State indicator on the card</td><td class="n">1</td><td class="n">0.60</td><td class="n">0.60</td><td class="n">1</td></tr>
+<tr><th scope="row">LED + 2.2 kΩ</th><td>Power indicator on the battery line</td><td class="n">1</td><td class="n">0.30</td><td class="n">0.30</td><td class="n">1</td></tr>
+<tr><th scope="row">Prototyping board, headers, wire</th><td>Interconnect</td><td class="n">1</td><td class="n">1.50</td><td class="n">1.50</td><td class="n">5</td></tr>
+<tr><th scope="row">3D-printed structure (A, B or C)</th><td>Mechanical frame</td><td class="n">1</td><td class="n">1.00</td><td class="n">1.00</td><td class="n">TBD</td></tr>
+<tr><th scope="row">Parachute + shroud lines</th><td>Recovery system</td><td class="n">1</td><td class="n">3.00</td><td class="n">3.00</td><td class="n">TBD</td></tr>
+<tr><th scope="row">Ballast</th><td>Brings the mass up to 300 g</td><td class="n">1</td><td class="n">0.50</td><td class="n">0.50</td><td class="n">TBD</td></tr>
+<tr class="tot"><th scope="row" colspan="4">Total (estimate)</th><td class="n">35.00</td><td class="n">≈ 81</td></tr>
+  </tbody>
+</table>
+
+<h2>Circuit</h2>
+{% include figure.html src="assets/img/cansat_circuit.svg" alt="Schematic: 9 V battery with power LED, main switch SW1, 5 V buck converter, ESP32, BMP280 and MPU6050 IMU on I2C, micro SD module on SPI, RGB state LED, WiFi enable switch SW2" caption="Figure 8. Flight configuration. For the formation, the emission was done by Wi-Fi. On the bench the board is powered through USB-C and the battery, SW1 and buck stage are left out." %}
+
+<h2>Key requirements</h2>
+<table>
+  <caption>Source: Règlement CanSat Lycéens, campaign 2027, working draft v3.2. Values may still change.</caption>
+  <thead><tr><th>Parameter</th><th>Requirement</th><th>This CanSat</th></tr></thead>
+  <tbody>
+    <tr><th scope="row">Envelope</th><td>Cylinder, 66 mm diameter × 115 mm, parachute excluded</td><td>113 mm × 66 mm (see drawing)</td></tr>
+    <tr><th scope="row">Mass</th><td>300 to 350 g, ready to fly</td><td>Electronics ≈ 81 g, structure and ballast make up the rest</td></tr>
+    <tr><th scope="row">Budget</th><td>≤ 500 €</td><td>≈ 35 € of parts (estimate)</td></tr>
+    <tr><th scope="row">Autonomy</th><td>4 h, external main switch, battery easy to reach</td><td>Main switch and battery door on the outside</td></tr>
+    <tr><th scope="row">Descent speed</th><td>5 to 12 m/s</td><td>Parachute sized for about 9 m/s (≈ 0.06 m², ≈ 28 cm round)</td></tr>
+    <tr><th scope="row">Shock</th><td>10 g</td><td>Open point: the battery door (see below)</td></tr>
+    <tr><th scope="row">Measurements</th><td>Temperature and pressure, at least 1 Hz</td><td>BMP280 at 10 Hz, logged to the SD card</td></tr>
+  </tbody>
+</table>
+
+<h2>Open issue</h2>
+<p>Battery retention under 10 g. The printed clips on the battery door work in handling, but are not yet shown to hold the battery in place at that acceleration. A shock or drop test with the battery fitted is the next step.</p>
+
+<h2>Links</h2>
+<p><a href="https://lnkd.in/p/dxWFp8iv">LinkedIn post</a> · <a href="https://www.planete-sciences.org/espace/cansat">Planète Sciences, CanSat</a></p>
