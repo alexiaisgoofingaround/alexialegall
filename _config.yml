@@ -1,5 +1,5 @@
 title: Alexia Le Gall
-description: Mechanical engineer and researcher. CV, skills and selected projects.
+description: Mechanical and mechatronics R&D engineer. CV, skills and selected projects.
 
 # Project site at https://alexiaisgoofingaround.github.io/alexialegall/
 # If you rename the repo to alexiaisgoofingaround.github.io (or use a custom domain), set baseurl: ""
@@ -7,17 +7,17 @@ url: "https://alexiaisgoofingaround.github.io"
 baseurl: "/alexialegall"
 
 # Used by the header, the home page, the CV page and the contact block of each project.
-# Leave a line empty and its link disappears.
+# Leave a line empty and its link disappears. Replace assets/files/cv.pdf with the real CV.
 author:
   name: "Alexia Le Gall"
-  role: "Mechanical engineer & PhD candidate"
-  tagline: "From clinical need to working prototype."
-  email: "alexia.le.gall@numericable.fr"          # <- put your real address
-  linkedin: "https://www.linkedin.com/in/alexia-le-gall-831378164/"                              # <- full URL, e.g. https://www.linkedin.com/in/...
+  role: "Mechanical & mechatronics engineer · R&D"
+  tagline: "From specification to validated hardware."
+  email: "alexia.le.gall@numericable.fr"
+  linkedin: "https://www.linkedin.com/in/alexia-le-gall-831378164/"
   github: "https://github.com/alexiaisgoofingaround"
-  photo: "assets/img/profile.png"           # <- your portrait (landscape or square, ~1200 px)
-  photo_alt: "Just a picture of me."        # <- alt text for your portrait
-  cv_pdf: "assets/files/cv.pdf"             # <- the maintained PDF CV
+  photo: "assets/img/profile.png"
+  photo_alt: "Portrait of Alexia Le Gall"
+  cv_pdf: "assets/files/cv.pdf"
 
 collections:
   projects:

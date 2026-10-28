@@ -1,40 +1,18 @@
 ---
-# Copy this file to _projects/<name>.html  (the file name becomes the URL: /projects/<name>/)
-# Files starting with "_" are ignored by Jekyll, so this template never appears on the site.
 title: "_heartistic"
-when: "2025"
-order: 1                      # position on the Projects page (1 = first)
-color: "#2E5560"              # tile colour
-featured: true               # true = large tile (use for one project only)
-skills: ["mechanical", "prototyping", "3dprinting", "fluidic"]            # ids from _data/skills.yml
-# subs: ["other-project"]     # hubs only: file names of child projects
-description: "Artistic installation showcasing an interactive beating heart"
-resources:                    # optional; url can be a file in assets/files/, a full https link, or "#"
-  - {label: "Paper", url: "https://doi.org/...", kind: "article"}
-  - {label: "Data", url: "assets/files/data.csv", kind: "dataset"}
+when: "2026"
+order: 1
+color: "#2E5560"
+featured: true
+image: "assets/img/heart_setup2.jpeg"
+image_alt: "The _heartistic enclosure lit up, with its electronics on the bench"
+skills: ["mechanical", "prototyping", "3dprinting", "fluidic", "electronics"]
+description: "An interactive art installation: a soft heart that beats in sync with the visitor's pulse. Shown at the RoboSoft 2026 art exhibition."
 ---
 
-<!-- Everything below is plain HTML. Write headings, paragraphs, lists, tables, math. -->
-
 <h2>Description</h2>
-<p>Text with inline math $\tau = pA\ell$ and a <a href="https://example.com">link</a>.
-Display math gets its own line: $$\tau(\theta) = p\,A\,\ell(\theta)$$</p>
+<p>A pneumatic balloon sits inside an origami-jointed heart shell. A heart-rate sensor reads the visitor's pulse, and an ESP32 drives a pump in sync with it, so the heart beats at the visitor's rhythm.</p>
 
-<h2>Results</h2>
-
-{% comment %} Image (put the file in assets/img/). Leave out src to get a grey placeholder. {% endcomment %}
-{% include figure.html src="assets/img/photo.jpg" alt="short description" caption="Figure 1. Caption." %}
-
-{% comment %} Own video file (assets/video/, H.264 .mp4, keep it small) {% endcomment %}
-{% include video.html src="assets/video/heartistic.mp4" caption="Video 1. Caption." %}
-
-<table>
-  <thead><tr><th>Sample</th><th>Pressure (kPa)</th><th>Angle (°)</th></tr></thead>
-  <tbody>
-    <tr><td>A</td><td>20</td><td>35</td></tr>
-    <tr><td>B</td><td>40</td><td>62</td></tr>
-  </tbody>
-</table>
-
-<pre><code># code: escape "<" as &lt; and "&" as &amp;
-x = 1</code></pre>
+{% include video.html src="assets/video/heartistic.mp4" caption="Video 1. _heartistic." %}
+{% include video.html src="assets/video/heartistic-demo.mp4" caption="Video 2. The installation running." %}
+{% include figure.html src="assets/img/heart1.jpeg" alt="3D-printed heart shell parts" caption="Figure 1. The printed heart shell parts." %}

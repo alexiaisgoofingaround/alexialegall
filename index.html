@@ -1,6 +1,6 @@
 ---
 layout: default
-description: Mechanical engineer and PhD candidate in bio-robotics. CV, skills and selected projects.
+description: Mechanical and mechatronics R&D engineer. CV, skills and selected projects.
 ---
 {%- assign photo_path = site.author.photo | default: 'assets/img/profile.jpg' -%}
 {%- capture photo_abs %}/{{ photo_path }}{% endcapture -%}
@@ -11,8 +11,10 @@ description: Mechanical engineer and PhD candidate in bio-robotics. CV, skills a
       <p class="kicker">{{ site.author.role }}</p>
       <h1>{{ site.author.tagline }}</h1>
       <!-- Plain HTML: edit this paragraph freely. -->
-      <p class="hero-lead">Mechanical engineer and PhD candidate in bio-robotics, with hands-on experience across the full development cycle: translating clinical requirements into system specifications, design, multiphysics modelling, fabrication and experimental validation. Experienced with the constraints specific to medical devices. Used to working and communicating across disciplines, and to coordinating multi-component developments.</p>
+      <p class="hero-lead">Mechanical and mechatronics engineer, with five years across medical devices and robotics. I take hardware through the full development cycle: requirements and specifications, CAD and simulation, prototyping and fabrication, then instrumented test rigs to verify the result against the model. Doctoral work in soft robotics at Scuola Superiore Sant'Anna, used to medical-device constraints and to coordinating multi-component developments across disciplines.</p>
       {% include contact-links.html %}
+      {%- capture cv_pdf %}{% include url.html u=site.author.cv_pdf %}{% endcapture %}
+      {% if site.author.cv_pdf %}<p class="hero-cv"><a class="btn btn-outline btn-sm" href="{{ cv_pdf | strip }}" download>{% include icon.html name="download" %}Download CV (PDF)</a></p>{% endif %}
     </div>
 
     {% if has_photo > 0 %}
@@ -25,7 +27,8 @@ description: Mechanical engineer and PhD candidate in bio-robotics. CV, skills a
   <ul class="focus">
     {% for f in site.data.focus %}
     <li>
-      <a href="{{ '/projects/' | relative_url }}#{{ f.filter }}">
+      {%- if f.link %}{% assign f_href = f.link | relative_url %}{% else %}{% capture f_href %}{{ '/projects/' | relative_url }}#{{ f.filter }}{% endcapture %}{% endif %}
+      <a href="{{ f_href }}">
         <span class="focus-ico">{% include icon.html name=f.icon %}</span>
         <span class="focus-title">{{ f.title }}</span>
         <span class="focus-text">{{ f.text }}</span>

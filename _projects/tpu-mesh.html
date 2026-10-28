@@ -1,12 +1,12 @@
 ---
 title: "Generative design of TPU mesh structures"
 when: "Aug. 2026"
-order: 5
+order: 2
 color: "#2E5560"
+image: "assets/img/meshResults.jpg"
+image_alt: "Printed TPU kirigami meshes"
 skills: ["3dprinting", "python"]
 description: "A small configurator that generates disc-like kirigami meshes from a handful of parameters and exports a printable STL."
-resources:
-  - {label: "Kirigami disc configurator (Python)", url: "assets/files/kirigami_configurator.py", kind: "code"}
 ---
 
 <p>Most of my thesis work was on origami, but kirigami is nonetheless interesting. This project was a short exploration 
@@ -26,16 +26,9 @@ layer by layer, and exports a printable STL.</p>
   outer ring that keeps the same dash pattern. The handles are arcs between two anchors on the flange, and the
   opening is a sector that removes a portion of the mesh.
 </p>
+
   {% include figure.html src="assets/img/schematicHub.png" alt="Anatomy of the generated structure" caption="Anatomy of a generated disc in the configurator: hub, segments, solid ring, flange, opening (red) and handles (green)." %}
 
-</p>
-<p>
-  The first step in the generation was going from a structure to a set of parameters. The structure is mostly 2D,
-  and 2.5D once the different thicknesses of its parts are taken into account. Everything is set up on an angular
-  logic: the hub is a filled contour, the mesh is a stack of dashed and solid rings, the flange is a thickened
-  outer ring with the same dash pattern, and the handles are arcs between two anchors on the flange. The opening
-  is an angular sector that removes a portion of the rings and the flange.
-</p>
 
 <h3>Mesh generation</h3>
 
@@ -75,14 +68,13 @@ layer by layer, and exports a printable STL.</p>
 <p>
   The opening is defined by an angle, a position and a range of rings. Every arc of the selected rings and of the
   flange that falls inside the sector is removed.
-
 </p>
 
 <h3>Design and implementation</h3>
 
 <p>
-  The generative logic was defined by the author from hand-made prototypes: a contour scaled into
-  concentric rings, dashed rings cut in quincunx, a flange that follows the dash pattern. It was then
-  implemented as a parametric configurator (Python, PyQt5, trimesh) with Claude (Anthropic) and tested
+  I defined the generative logic from hand-made prototypes: a contour scaled into
+  concentric rings, dashed rings cut in quincunx, a flange that follows the dash pattern. I then
+  implemented it as a parametric configurator (Python, PyQt5, trimesh) with Claude (Anthropic) and tested
   against printed meshes.
 </p>

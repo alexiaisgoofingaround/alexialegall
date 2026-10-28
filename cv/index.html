@@ -47,7 +47,7 @@ description: Experience, education, skills and publications.
               {% for s in g.items %}
                 {% assign n = 0 %}
                 {% for p in site.projects %}{% if p.skills contains s.id %}{% assign n = n | plus: 1 %}{% endif %}{% endfor %}
-                <a class="chip" href="{{ '/projects/' | relative_url }}#{{ s.id }}" data-skill="{{ s.id }}">{{ s.label }}<span class="n">{{ n }}</span></a>
+                {% if n > 0 %}<a class="chip" href="{{ '/projects/' | relative_url }}#{{ s.id }}" data-skill="{{ s.id }}">{{ s.label }}<span class="n">{{ n }}</span></a>{% else %}<span class="chip chip-static">{{ s.label }}</span>{% endif %}
               {% endfor %}
             </div>
           </div>
@@ -63,8 +63,7 @@ description: Experience, education, skills and publications.
         <h2 id="h-pub">Publications</h2>
         <ol class="pubs">
           {% for p in site.data.cv.publications %}
-          {%- capture href %}{% include url.html u=p.url %}{% endcapture -%}
-          <li><span class="when">{{ p.year }}</span><a href="{{ href | strip }}">{{ p.title }}</a><span class="org">{{ p.venue }}</span></li>
+          <li><span class="when">{{ p.year }}</span>{% if p.url and p.url != "" and p.url != "#" %}{%- capture href %}{% include url.html u=p.url %}{% endcapture -%}<a href="{{ href | strip }}">{{ p.title }}</a>{% else %}<span class="pub-title">{{ p.title }}</span>{% endif %}<span class="org">{{ p.venue }}</span></li>
           {% endfor %}
         </ol>
       </section>

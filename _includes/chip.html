@@ -1,2 +1,4 @@
 {%- capture label %}{% include skill-label.html id=include.id %}{% endcapture -%}
-<a class="chip" href="{{ '/projects/' | relative_url }}#{{ include.id }}" data-skill="{{ include.id }}">{{ label | strip }}</a>
+{%- assign _n = 0 -%}{%- for p in site.projects -%}{%- if p.skills contains include.id -%}{%- assign _n = _n | plus: 1 -%}{%- endif -%}{%- endfor -%}
+{%- if _n > 0 -%}<a class="chip" href="{{ '/projects/' | relative_url }}#{{ include.id }}" data-skill="{{ include.id }}">{{ label | strip }}</a>
+{%- else -%}<span class="chip chip-static">{{ label | strip }}</span>{%- endif -%}

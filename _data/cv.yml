@@ -21,7 +21,6 @@ experience:
       - "Two closed-loop instrumented rigs (fluidic and thermal)."
       - "Co-supervised MSc theses."
     skills: ["mechanical", "fea", "prototyping", "molding", "testrigs", "python"]
-    projects: []   # PhD project temporarily unpublished
   - when: "2025–2026"
     title: "Visiting researcher, fluidic logic"
     org: "Oxford Robotics Institute"
@@ -30,7 +29,6 @@ experience:
       - "Bistable valves using PolyJet multi-material properties."
       - "Toolbox from Boolean logic to 3D-printable geometry."
     skills: ["fluidic", "prototyping", "cad"]
-    projects: []   # project file names (without .html)
   - when: "2022"
     title: "Research engineer intern"
     org: "GIPSA-lab, Grenoble"
@@ -38,7 +36,6 @@ experience:
     details:
       - "Designed, fabricated and characterised the prototype through iterative prototyping."
     skills: ["prototyping", "medical", "fluidic"]
-    projects: []   # project file names (without .html)
   - when: "2021–2022"
     title: "Mechanical engineer intern"
     org: "PKVitality, Paris"
@@ -47,7 +44,6 @@ experience:
       - "Mechanical design under biocompatibility constraints."
       - "Design validation with clinician and end-user feedback."
     skills: ["mechanical", "cad", "medical", "dfm"]
-    projects: []   # project file names (without .html)
 
 education:
   - when: "2017–2022"
@@ -60,7 +56,6 @@ education:
       - "Erasmus exchange, TU Hamburg (2021)."
       - "Equipment manager at FabLab UTC."
     skills: ["mechanical", "cad", "fea"]
-    projects: []   # project file names (without .html)
   - when: "2024"
     title: "BEST summer school, 1st prize"
     org: "IHU Strasbourg"
@@ -68,17 +63,13 @@ education:
     details:
       - "Deployable endoscopic device concept for endometriosis screening; won the team competition."
     skills: ["medical", "mechanical"]
-    projects: []   # project file names (without .html)
   - when: "2023"
     title: "Summer school on surgical robotics"
     org: "LIRMM, Montpellier"
     summary: "Surgical robotics methods and systems."
-    details:
-      - "Add what you covered or built there."
     skills: ["medical"]
-    projects: []   # project file names (without .html)
 
-# Edit titles / venues / urls. url "#" = no link yet.
+# Publications. Leave url empty for no link.
 publications:
   - year: "2026"
     title: "Crease-Encoded Soft Origami Chambers"
@@ -86,8 +77,20 @@ publications:
     url: "https://advanced.onlinelibrary.wiley.com/doi/full/10.1002/aisy.70543"
   - year: "2025"
     title: "A Multiphysics Model for Phase Change Actuation"
-    venue: "IFAC"
-    url: "#"
+    venue: "IFAC Mechatronic Systems"
+    url: ""
+  - year: "2025"
+    title: "Medical & Healthcare Robotics: A Roadmap"
+    venue: "IOP Measurement Science and Technology"
+    url: ""
+  - year: "2024"
+    title: "An Origami-Based Fluidic Actuator for Minimally Invasive Surgery"
+    venue: "ACTUATOR 2024"
+    url: ""
+  - year: "2024"
+    title: "Data-Driven Methods Applied to Soft Robot Modeling and Control: A Review"
+    venue: "IEEE Transactions on Automation Science and Engineering"
+    url: ""
 
 hobbies:
   - title: "CanSat lead referee"
@@ -97,6 +100,6 @@ hobbies:
   - title: "FabLab UTC"
     text: "Equipment manager and trainer, 2019–2022."
   - title: "Sports"
-    text: "Mountaineering, running"
+    text: "Mountaineering, running."
   - title: "Crafts"
-    text: "3D printing, crochet, painting, photography"
+    text: "3D printing, crochet, painting, photography."

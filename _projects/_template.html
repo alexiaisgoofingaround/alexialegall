@@ -4,7 +4,8 @@
 title: "Project title"
 when: "2025"
 order: 6                      # position on the Projects page (1 = first)
-color: "#2E5560"              # tile colour
+color: "#2E5560"              # tile colour (until image: is set)
+image: "assets/img/cover.jpg" # cover picture
 featured: false               # true = large tile (use for one project only)
 skills: ["python"]            # ids from _data/skills.yml
 # subs: ["other-project"]     # hubs only: file names of child projects
@@ -22,10 +23,10 @@ Display math gets its own line: $$\tau(\theta) = p\,A\,\ell(\theta)$$</p>
 
 <h2>Results</h2>
 
-{% comment %} Image (put the file in assets/img/). Leave out src to get a grey placeholder. {% endcomment %}
+{% comment %} Image (put the file in assets/img/). {% endcomment %}
 {% include figure.html src="assets/img/photo.jpg" alt="short description" caption="Figure 1. Caption." %}
 
-{% comment %} Own video file (assets/video/, H.264 .mp4, keep it small) {% endcomment %}
+{% comment %} Own video file (assets/video/, H.264 .mp4, not HEVC, keep it small; loop=true for a silent looping clip instead of a GIF) {% endcomment %}
 {% include video.html src="assets/video/clip.mp4" caption="Video 1. Caption." %}
 
 {% comment %} YouTube / Vimeo: use the EMBED url {% endcomment %}

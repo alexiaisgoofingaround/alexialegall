@@ -14,13 +14,13 @@ _projects/             ONE FILE PER PROJECT  → /projects/<file-name>/
 _layouts/              default (header/footer), project (picture, "+" story, documents, contact)
 _includes/             icon, figure, video, embed, chip, cover, ...
 assets/
-  css/style.css  js/site.js     (in this zip)
-  img/  video/  files/          YOUR folders, keep them as they are
+  css/style.css  js/site.js
+  img/  video/  files/
 ```
 
-Files you need to add yourself: `assets/img/profile.jpg` (home portrait) and
-`assets/files/cv.pdf` (the Download CV button). Project cover: add `image: "assets/img/x.jpg"`
-to the project header, otherwise a coloured block is shown.
+Replace `assets/files/cv.pdf` (placeholder) with the real CV. Project cover: `image: "assets/img/x.jpg"`
+in the project header, otherwise a coloured block is shown. Videos: H.264 .mp4 (HEVC does not play in Chrome/Firefox).
+File names must not start with `_` (Jekyll skips them).
 
 ## Write a project page
 Each file in `_projects/` = a small header (between `---`) + **plain HTML**.

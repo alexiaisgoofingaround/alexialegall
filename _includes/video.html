@@ -1,4 +1,5 @@
+{%- comment -%} Usage: {% include video.html src="assets/video/x.mp4" caption="..." %}  Add loop=true for a silent, autoplaying GIF-like clip. {%- endcomment -%}
 <figure>
-  <video controls playsinline preload="metadata"{% if include.poster %} poster="{{ include.poster | relative_url }}"{% endif %} src="{{ include.src | relative_url }}"></video>
+  <video {% if include.loop %}class="loop" autoplay muted loop playsinline{% else %}controls playsinline preload="metadata"{% endif %}{% if include.poster %} poster="{{ include.poster | relative_url }}"{% endif %} src="{{ include.src | relative_url }}"></video>
   {% if include.caption %}<figcaption>{{ include.caption }}</figcaption>{% endif %}
 </figure>
