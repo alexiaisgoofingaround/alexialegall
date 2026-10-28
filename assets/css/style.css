@@ -388,3 +388,9 @@ details[open] > summary .round-btn { transform: rotate(45deg); }
 figure video.loop { width: 100%; height: auto; display: block; }
 .chip-static { cursor: default; }
 .pubs .pub-title { font-size: 15px; font-weight: 500; color: var(--ink); }
+.prose figure.narrow { max-width: 360px; margin-left: auto; margin-right: auto; }
+/* Side by side: media left, text right (stacks on phones) */
+.prose .split { display: grid; grid-template-columns: minmax(0, 340px) minmax(0, 1fr); gap: clamp(20px, 4vw, 40px); align-items: start; margin: 8px 0 28px; }
+.prose .split > figure { margin: 0; }
+.prose .split h2:first-child { margin-top: 0; }
+@media (max-width: 700px) { .prose .split { grid-template-columns: 1fr; } .prose .split > figure { max-width: 360px; } }

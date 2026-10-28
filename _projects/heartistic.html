@@ -4,15 +4,50 @@ when: "2026"
 order: 1
 color: "#2E5560"
 featured: true
-image: "assets/img/heart_setup2.jpeg"
-image_alt: "The _heartistic enclosure lit up, with its electronics on the bench"
+image: "assets/img/heart-vignette.jpg"
+image_alt: "The soft heart lit up inside its glass enclosure"
 skills: ["mechanical", "prototyping", "3dprinting", "fluidic", "electronics"]
-description: "An interactive art installation: a soft heart that beats in sync with the visitor's pulse. Shown at the RoboSoft 2026 art exhibition."
+description: "A sculpture for the RoboSoft 2026 art exhibition: a soft heart, hidden under glass until it lights up, that beats in sync with the visitor's pulse."
 ---
 
-<h2>Description</h2>
-<p>A pneumatic balloon sits inside an origami-jointed heart shell. A heart-rate sensor reads the visitor's pulse, and an ESP32 drives a pump in sync with it, so the heart beats at the visitor's rhythm.</p>
+<div class="split">
+  {% include video.html src="assets/video/heartistic.mp4" caption="Video 1. _heartistic." %}
+  <div>
+    <h2>A question</h2>
+    <p>_heartistic was born from a question: what if we made a beating heart?</p>
+    <p>Every year, the RoboSoft conference organises an art exhibition alongside the main conference, open to pictures, sculptures and films. We went for a sculpture. Can we make a beating heart? Or at least the illusion of one? With soft robotics it is quite simple: it is all about allowing the deformations.</p>
+  </div>
+</div>
 
-{% include video.html src="assets/video/heartistic.mp4" caption="Video 1. _heartistic." %}
-{% include video.html src="assets/video/heartistic-demo.mp4" caption="Video 2. The installation running." %}
-{% include figure.html src="assets/img/heart1.jpeg" alt="3D-printed heart shell parts" caption="Figure 1. The printed heart shell parts." %}
+{% include video.html src="assets/video/beatingHeart.mp4" loop=true small=true caption="Video 2. The heart beating." %}
+
+<h2>A broken heart</h2>
+<p>We started from the 3D scan of a human heart, printed with 8 shells and zero infill. The initial plan was to print it directly in pieces; for lack of time, cutting it by hand ended up being the final solution.</p>
+
+{% include figure.html src="assets/img/heart-pieces.jpg" alt="The printed heart cut into pieces" caption="Figure 1. The printed heart, cut into pieces." %}
+
+<p>Now that we had a broken heart, we pieced it back together with waterbomb units. These origami cells are easy to 3D print and, once folded, give a good spring effect. The heart can now beat, as long as something pushes it from inside: a balloon. Two, actually. After a few tests we settled on two balloons, using the aorta as an improvised channel.</p>
+
+{% include figure.html src="assets/img/heart-waterbomb.jpg" alt="Heart shell pieces joined by printed waterbomb origami units" small=true caption="Figure 2. Shell pieces joined by printed waterbomb units, which act as springs." %}
+
+<h2>Electronics</h2>
+<p>The electronics are simple: a LiPo battery, an ESP32, a pump, a MOSFET to switch the pump on and off, and a normally closed valve. No motor driver: what matters here is timing, not duty cycle. We tried a few sensors, including a touch sensor, added and then removed a screen, and, most importantly, backlit the enclosure.</p>
+
+{% include video.html src="assets/video/synchroSensor.mp4" small=true caption="Video 3. First test of the heartbeat sensor, before any calibration of the pumping time." %}
+
+<h2>The enclosure</h2>
+<p>The enclosure came late in the process. The first versions replicated a surgical stand, the kind tools are laid on, so the heart would look like a prop straight out of an operation.</p>
+
+{% include figure.html src="assets/img/heart-stand.jpg" alt="First enclosure, shaped like a surgical stand, with the electronics on the bench" caption="Figure 3. The first enclosure, a surgical stand, with the electronics on the bench." %}
+
+<p>We then made the piece more interactive: the heart should not only be a prop, but the centre of the work. We put it under glass, with a reflective film that hides it until the inside lights up.</p>
+
+{% include figure.html src="assets/img/heart-enclosure.jpg" alt="Final enclosure with the backlit window, pulse sensor and heartbeat display" caption="Figure 4. The final enclosure: backlit window, pulse sensor and display." %}
+{% include video.html src="assets/video/enclosureOnOff.mp4" small=true caption="Video 4. Switching the backlight on and off: the heart only appears when lit." %}
+
+<h2>Integration</h2>
+<p>Finally, it was time to integrate everything and, most importantly, fix it in place. Integration is often overlooked, yet it is always the hardest part of a project. We accounted for it from the first design step: keeping space, where to screw the pump, where to put foam to damp the pump noise, the inlet and outlet ports of the pump, the switch. Everything had to be fixed thoroughly.</p>
+
+<h2>Driving the pump</h2>
+<p>The pump was a bit slow, so we used a two-level strategy. The pump first inflates the balloons to a base volume $V_0$; each beat is then a smaller variation $\Delta V$ on top of it, timed from the pulse read by the sensor. A beat is a few milliseconds of inflating, then opening the circuit through the valve.</p>
+<p>It worked well, although we scaled the beat down so the balloons would survive the week of exhibition. With safety cases added, mainly to avoid burning the motor if it is switched on and off too fast, the heart was ready to ship.</p>
