@@ -11,35 +11,65 @@ description: "A generic CanSat template built around an off-centre separator and
 resources:
   - {label: "LinkedIn post", url: "https://lnkd.in/p/dxWFp8iv", kind: "article"}
   - {label: "Planète Sciences, CanSat", url: "https://www.planete-sciences.org/espace/cansat", kind: "article"}
+  - {label: "SolidWorks part (BiShells.SLDPRT)", url: "assets/files/BiShells.SLDPRT", kind: "file"}
 ---
 
+<style>
+.cansat-page h2 { clear: both; }
+.cansat-page .side { width: 240px; max-width: 42%; margin: 0.25rem 0 0.75rem 1.5rem; float: right; }
+.cansat-page .side.left { float: left; margin: 0.25rem 1.5rem 0.75rem 0; }
+.cansat-page .side img, .cansat-page .side video { width: 100%; height: auto; }
+.cansat-page .side figcaption, .cansat-page .side .caption { font-size: 0.85em; }
+.cansat-page .side.wide { width: 320px; max-width: 50%; }
+@media (max-width: 600px) {
+  .cansat-page .side, .cansat-page .side.left, .cansat-page .side.wide { float: none; width: 100%; max-width: 100%; margin: 0.75rem 0; }
+}
+</style>
+<div class="cansat-page">
+
 <h2>Description</h2>
+<div class="side">
+{% include figure.html src="assets/img/cansatOpen2.jpg" alt="Second-version CanSat open: ESP32, micro SD module, IMU and pressure sensor on a prototyping board inside one shell" caption="Figure 1. The second-version CanSat, open: the electronics sit on a prototyping board inside one shell." %}
+</div>
 <p>A generic CanSat template for the CanSat Lycéens competition (Planète Sciences, ESERO France, CNES), built for two consecutive organiser trainings. It worked both times.</p>
 
-{% include figure.html src="assets/img/cansatOpen2.jpg" alt="Second-version CanSat open: ESP32, micro SD module, IMU and pressure sensor on a prototyping board inside one shell" caption="Figure 1. The second-version CanSat, open: the electronics sit on a prototyping board inside one shell." %}
+
 
 <h2>Why a CanSat template</h2>
 <p>The first CanSat Lycéens training was there to make organisers, volunteers and teachers aware of the medium and the competition. I believe you haven't understood the difficulties until you are knee deep in them, so part of the training is building your own CanSat. I had to prepare the material.</p>
 
 <h2>First version</h2>
+<div class="side left">
+{% include figure.html src="assets/img/first_formation.jpg" alt="First-year CanSat sending data" caption="Figure 2. First-year CanSat sending data." %}
+</div>
 <p>The first design was much simpler: two symmetric shells, and a support in between. It worked, but as a perfect example of my previous statement, it was perfectible. The support in the middle was limiting the effective space. The separation between the shells ran all through the body, which reduced the stiffness of the cap, where all the forces go once the parachute is attached. So came the second version.</p>
 
-{% include figure.html src="assets/img/first_formation.jpg" alt="First-year CanSat sending data" caption="Figure 2. First-year CanSat sending data." %}
 
 <h2>Second version</h2>
 <p>We set out to create a very generic template for a CanSat. There are as many designs as CanSats, but from experience, seeing them every year, a few observations led to ours.</p>
 
 <p>First, the main challenge is the electronic integration. Unless the team can make a PCB, commercially available breakout boards take space, a lot of it. So you want a shape that gives them support to fix onto, but still leaves serious space. An eccentric vertical separator ended up being the best solution: the electronics are fixed on it, which leaves the full diameter for the circuit.</p>
 
-{% include figure.html src="assets/img/cansatOpen.jpg" alt="Printed second-version shells and electronics being wired on the bench" caption="Figure 3. Preparing the training material: printed shells and electronics being wired." %}
 
+<div class="side">
+{% include figure.html src="assets/img/cansatOpen.jpg" alt="Printed second-version shells and electronics being wired on the bench" caption="Figure 3. Preparing the training material: printed shells and electronics being wired." %}
+</div>
 <p>Second, not in order of importance, you need structural integrity, and you want it well separated from the electronics. In rockets, the question is whether the external envelope can take the structural load or not. It would be easy to 3D print screw caps and fix the parachute on one of them, but it is harder to make sure the thread resists the forces. Broadly speaking, it should, but access to the internal components is reduced. Instead we have a bi-shell approach: two almost identical shells, screwed together with nuts and bolts, four in total. That is enough for good resistance, and lets us consider the CanSat skin-bearing. The electronics are fixed inside, on the eccentric separator.</p>
 
 <p>A flat is cut on each side so the CanSat can be printed lying on the bed. It can reduce the printing time, at the price of a less perfect surface on each side.</p>
 
+<div class="side left">
+{% include video.html src="assets/video/second_formation.mp4" loop=true caption="Figure 4. Second-year CanSat with fall detection." %}
+</div>
 <p>The battery is separate, in its own compartment, easily accessed from the outside. The door is held by simple printed clips with a wiggle-shaped spring. A single wiggle was too thin, two wiggles gave the rigidity. It is easier to open than a screwed cover. The solution works, but we doubt it will keep the battery in at 10 g without popping out. We are searching for a solution.</p>
 
-{% include video.html src="assets/video/second_formation.mp4" loop=true caption="Figure 4. Second-year CanSat with fall detection." %}
+
+<h2>Mechanical drawing</h2>
+<div class="side wide">
+<a href="{{ 'assets/img/cansat_drawing.png' | relative_url }}"><img src="{{ 'assets/img/cansat_drawing.png' | relative_url }}" alt="Mechanical drawing of the CanSat bi-shell: section B-B, front, side and top views, details C and D" loading="lazy"></a>
+<div class="caption">Figure 5. Mechanical drawing of the bi-shell (A4, click for full size). Details C and D: battery-door clip spring and a bolt location.</div>
+</div>
+<p>One shell, 113 mm long and 66 mm in diameter, within the 115 mm envelope of the rules. Section B-B shows the internal volume and the eccentric separator; the four bolts (Ø4 mm holes) close the two shells together. Detail C is the wiggle-shaped clip spring of the battery door, detail D a bolt location. The part file is available in the resources.</p>
 
 <h2>Components and cost</h2>
 <table>
@@ -66,7 +96,7 @@ resources:
 </table>
 
 <h2>Circuit</h2>
-{% include figure.html src="assets/img/cansat_circuit.svg" alt="Schematic: 9 V battery with power LED, main switch SW1, 5 V buck converter, ESP32, BMP280 and MPU6050 IMU on I2C, micro SD module on SPI, RGB state LED, WiFi enable switch SW2" caption="Figure 5. Flight configuration. For the formation, the emission was done by Wi-Fi. On the bench the board is powered through USB-C and the battery, SW1 and buck stage are left out." %}
+{% include figure.html src="assets/img/cansat_circuit.svg" alt="Schematic: 9 V battery with power LED, main switch SW1, 5 V buck converter, ESP32, BMP280 and MPU6050 IMU on I2C, micro SD module on SPI, RGB state LED, WiFi enable switch SW2" caption="Figure 6. Flight configuration. For the formation, the emission was done by Wi-Fi. On the bench the board is powered through USB-C and the battery, SW1 and buck stage are left out." %}
 
 <h2>Key requirements</h2>
 <table>
@@ -85,4 +115,4 @@ resources:
 
 <h2>Open issue</h2>
 <p>Battery retention under 10 g. The printed clips on the battery door work in handling, but are not yet shown to hold the battery in place at that acceleration. A shock or drop test with the battery fitted is the next step.</p>
-
+</div>
